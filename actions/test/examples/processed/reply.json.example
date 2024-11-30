@@ -1,0 +1,19 @@
+{
+  "action": "reply",
+  "account": "PIXEL",
+  "richText": "Reply from automation",
+  "replyURL": "https://bsky.app/profile/pixel-voyager.bsky.social/post/3lbnik24wgk2i",
+  "replyInfo": {
+    "uri": "at://did:plc:tw2ov5bciclbz7b45sh4xlua/app.bsky.feed.post/3lbnik24wgk2i",
+    "cid": "bafyreie2h4c4scqtjt67aobborxpufeinnwzbn3yy4xwciykmrihrk3tyi"
+  },
+  "result": {
+    "uri": "at://did:plc:tw2ov5bciclbz7b45sh4xlua/app.bsky.feed.post/3lbnik3jixl2h",
+    "cid": "bafyreiajrmvsl42v7lvlqfmizbe4vgpiz6of46iufo5cwoie6zkeevvneq",
+    "commit": {
+      "cid": "bafyreiao5y4gy5n4vepzw4ttlmx67yklxikcv5x5ewwc7vvkrn3bcvdkhi",
+      "rev": "3lbnik3jmul2h"
+    },
+    "validationStatus": "valid"
+  }
+}
