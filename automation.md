@@ -2,10 +2,13 @@
 
 ## Directory structure
 
-Currently, scripts for the actions are under `./actions` folder. Records of requested and performed actions are under `./records`.
+Scripts for the actions are under `./actions` folder.
+Records of requested and performed actions are under `./records`.
 
 ```
-- .github/       # Contains workflows alive
+- .github/workflows       # Contains workflows
+    - process.yml         # Process merged requests
+    - validate.yml        # Validate JSON requests added in PRs to catch early errors
 
 - actions/       # scripts for the actions
     - lib/
@@ -23,7 +26,27 @@ Currently, scripts for the actions are under `./actions` folder. Records of requ
                   # processed on that date.
 ```
 
-## Set it up
+## Perform actions with a pull request
+
+Content automation is done in the form of adding new JSON files to `records/new`. To submit the request:
+
+1. Open a pull request targeting the `main` branch to add a JSON file or multiple JSON files to `records/new/`.
+     - The file name can be anything, as long as it ends with `.json`, though its better to give it a descriptive name like `repost.json`. The file will be renamed and moved to `records/processed` later so it doesn't matter how it is named during the draft phase.
+     - For example, see https://github.com/joyeecheung/bluesky-playground/pull/8
+2. The JSON files must contain at least the two required fields:
+   - `"account"`: a pre-configured account name, see [repository setup](#set-up-automation-in-a-repository) on account name configuration.
+     currently the following accounts are supported:
+       - `NODEJS_ORG`: for [nodejs.org](https://bsky.app/profile/nodejs.org) on Bluesky
+   - `"action"`: Currently, the following actions are supported:
+     - `"post"`: post new content specified by `"richText"`
+     - `"repost"`: repost an existing post specified by `"repostURL"`
+     - `"reply"`: reply to an existing post specified by `"replyURL"`, with content specified by `"richText"`
+     - `"quote-post"`: quote an existing post specified by `"repostURL"`, with new content specified by `"richText"`
+   - For other fields see the examples under [`records/new`](./records/new).
+3. When the PR is opened, the [validate-json](./.github/workflows/validate.yml) workflow will run to make sure the JSON files are correctly filled. It will verify the URLs filled in the JSON files are valid.
+4. When the PR is merged, the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
+
+## Set up automation in a repository
 
 1. [Set up repository secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) for accounts.
     1. For each account that the automation controls, give it a name (this will be used as part of the environment variables, so ideally it should just be a capitalized word), for example `NODEJS_ORG`.
@@ -38,18 +61,6 @@ Currently, scripts for the actions are under `./actions` folder. Records of requ
     ```
 
   There can be multiple accounts configured in the environment variables. The GitHub actions will process JSON files with an "account" field specifying which account they want to use to perform the action.
-
-## Perform actions with a pull request
-
-1. Open a pull request targeting the `main` branch to add a JSON file or multiple JSON files to `records/new/`. 
-     - The file name can be anything, as long as it ends with `.json`, though its better to give it a descriptive name like `repost.json`. The file will be renamed and moved to `records/processed` later so it doesn't matter how it is named during the draft phase. 
-     - For example, see https://github.com/joyeecheung/bluesky-playground/pull/8
-2. The JSON files must contain:
-     - `"action"`: currently `"post"`, `"repost"`, `"quote-post"` and `"reply"` are supported
-     - `"account"`: it should be one of the account set up in the previous section, for example `"NODEJS_ORG"` if the corresponding secret is `BLUESKY_APP_PASSWORD_NODEJS_ORG`.
-     - For other fields see the examples under [`records/new`](./records/new).
-3. When the PR is opened, the [validate-json](./.github/workflows/validate.yml) workflow will run to make sure the JSON files are correctly filled. It will verify the URLs filled in the JSON files are valid.
-4. When the PR is merged, the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
 
 ## Develop and run tests
 
