@@ -38,6 +38,9 @@ jobs:
           # Get the list of added JSON files in the records/new/ directory
           ADDED_FILES=$(git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} --diff-filter=A --name-only | grep '^records/new/.*\.json$')
           echo "NEW_JSON_FILES=$ADDED_FILES" >> $GITHUB_ENV
+          if [ -z "$ADDED_FILES" ]; then
+            echo "No new JSON files found."
+          fi
 
       - name: Validate files
         if: env.NEW_JSON_FILES
