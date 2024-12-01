@@ -1,5 +1,5 @@
 {
   "action": "post",
   "account": "NODEJS_ORG",
-  "richText": "We are testing collaborative Bluesky content management. This post is sent from a GitHub action triggered by a merged pull request in REPLACEME!"
+  "richText": "We are testing collaborative Bluesky content management. This post is sent from a GitHub action triggered by a merged pull request in https://github.com/nodejs/bluesky/pull/5!"
 }
