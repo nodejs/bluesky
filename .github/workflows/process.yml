@@ -27,6 +27,10 @@ jobs:
           # Needed to push changes back to the repo
           fetch-depth: 0
 
+      # Must be done before setup-node.
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -42,8 +46,11 @@ jobs:
         id: find-json
         run: |
           # Get the list of added JSON files in the records/new/ directory
-          ADDED_FILES=$(git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} --diff-filter=A --name-only | grep '^records/new/.*\.json$')
+          ADDED_FILES=$(git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} --diff-filter=A --name-only | grep '^records/new/.*\.json$' || true)
           echo "NEW_JSON_FILES=$ADDED_FILES" >> $GITHUB_ENV
+          if [ -z "$ADDED_FILES" ]; then
+            echo "No new JSON files found."
+          fi
 
       - name: Process and move files
         if: env.NEW_JSON_FILES
