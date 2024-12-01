@@ -1,0 +1,14 @@
+{
+  "action": "post",
+  "account": "PIXEL",
+  "richText": "Hello from automation!",
+  "result": {
+    "uri": "at://did:plc:tw2ov5bciclbz7b45sh4xlua/app.bsky.feed.post/3lbnijyd24t2i",
+    "cid": "bafyreiei4qhs3hu3iuvq3uuwx4efal6hkdmesz7ssjci4v7hpljuhxuy2e",
+    "commit": {
+      "cid": "bafyreihwre53vkjzkackwwllc7fszgbdn3ej2oi7zxzaw5xafyrwxdh36y",
+      "rev": "3lbnijyd7yd2i"
+    },
+    "validationStatus": "valid"
+  }
+}

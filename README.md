@@ -8,10 +8,7 @@ Currently the following account(s) are managed by the Node.js project:
 
 - [nodejs.org](https://bsky.app/profile/nodejs.org)
 
-## Ongoing discussions
+## Content management automation
 
-We are in the bootstrapping phase of our Bluesky presence. Join the discussions!
-
-- [Which accounts should we set up? #1](https://github.com/nodejs/bluesky/issues/1)
-- [Who should have access for this repository? #2](https://github.com/nodejs/bluesky/issues/2)
-- [Automation of the Bluesky account(s) #3](https://github.com/nodejs/bluesky/issues/3)
+See [automation documentation](./automation.md#perform-actions-with-a-pull-request) on how to manage content in the official accounts using GitHub pull requests,
+and [review guidelines](./review_guidelines.md) on how the requests are reviewed.

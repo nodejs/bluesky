@@ -1,0 +1,47 @@
+name: Validate newly added JSON
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Needed to push changes back to the repo
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "yarn"
+          cache-dependency-path: actions/yarn.lock
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./actions
+
+      - name: Find newly added JSON files
+        id: find-json
+        run: |
+          # Get the list of added JSON files in the records/new/ directory
+          ADDED_FILES=$(git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} --diff-filter=A --name-only | grep '^records/new/.*\.json$')
+          echo "NEW_JSON_FILES=$ADDED_FILES" >> $GITHUB_ENV
+
+      - name: Validate files
+        if: env.NEW_JSON_FILES
+        env:
+          BLUESKY_IDENTIFIER_NODEJS_ORG: nodejs.org
+          BLUESKY_APP_PASSWORD_NODEJS_ORG: ${{ secrets.BLUESKY_APP_PASSWORD_NODEJS_ORG }}
+        run: |
+          for file in $NEW_JSON_FILES; do
+            echo "Processing $file..."
+            node actions/login-and-validate.js "$file"
+          done
