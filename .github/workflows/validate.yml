@@ -17,6 +17,10 @@ jobs:
           # Needed to push changes back to the repo
           fetch-depth: 0
 
+      # Must be done before setup-node.
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
