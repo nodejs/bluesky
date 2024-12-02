@@ -1,0 +1,14 @@
+{
+  "action": "post",
+  "account": "NODEJS_ORG",
+  "richText": "We are testing collaborative Bluesky content management. This post is sent from a GitHub action triggered by a merged pull request in https://github.com/nodejs/bluesky/pull/8!",
+  "result": {
+    "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3lcd5ct56w42m",
+    "cid": "bafyreig4434f5vbo3wb65swrzzemnrlgagk6tsrjr7kchroa2zts4h54de",
+    "commit": {
+      "cid": "bafyreicxr57zgnq66zorlkryrwsr7ktwtfhf77d2e7nwjolon4ve77b22a",
+      "rev": "3lcd5ct5fqu2m"
+    },
+    "validationStatus": "valid"
+  }
+}
