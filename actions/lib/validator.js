@@ -47,7 +47,7 @@ export function validateRequest(request) {
  * @param {object} request
  * @param {string} fieldName
  */
-async function validatePostURLInRequest(agent, request, fieldName) {
+async function PostURLInRequest(agent, request, fieldName) {
   let result;
   try {
     result = await getPostInfoFromUrl(agent, request[fieldName]);
@@ -60,21 +60,21 @@ async function validatePostURLInRequest(agent, request, fieldName) {
 }
 
 /**
- * Validate the post URLs in the request and extend them into { uri, cid } pairs
+ * Extend them into { uri, cid } pairs
  * if necessary.
  * @param {import('@atproto/api').AtpAgent} agent 
  * @param {object} request
  */
-export async function validateAndExtendRequestReferences(agent, request) {
+export async function ExtendRequestReferences(agent, request) {
   switch(request.action) {
     case 'repost':
     case 'quote-post': {
-      const info = await validatePostURLInRequest(agent, request, 'repostURL');
+      const info = await PostURLInRequest(agent, request, 'repostURL');
       request.repostInfo = info;
       break;
     }
     case 'reply': {
-      const info = await validatePostURLInRequest(agent, request, 'replyURL');
+      const info = await PostURLInRequest(agent, request, 'replyURL');
       request.replyInfo = info;
       break;
     }

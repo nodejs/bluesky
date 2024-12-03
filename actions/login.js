@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import process from 'node:process';
 import path from 'node:path';
 import { login } from './lib/login.js';
-import { validateAccount, validateRequest, validateAndExtendRequestReferences } from './lib/validator.js';
+import { validateAccount, ExtendRequestReferences } from './lib/validator.js';
 
 // The JSON file must contains the following fields:
 // - "account": a string field indicating the account to use to perform the action.
@@ -15,12 +15,11 @@ const request = JSON.parse(fs.readFileSync(requestFilePath, 'utf8'));
 
 // Validate the account field.
 const account = validateAccount(request, process.env);
-validateRequest(request);
 
 // Authenticate.
 const agent = await login(account);
 
-// Validate and extend the post URLs in the request into { cid, uri } records.
-await validateAndExtendRequestReferences(agent, request);
+// Extend the post URLs in the request into { cid, uri } records.
+await ExtendRequestReferences(agent, request);
 
 export { agent, request, requestFilePath };
