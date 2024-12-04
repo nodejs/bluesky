@@ -14,8 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Needed to push changes back to the repo
-          fetch-depth: 0
+          fetch-depth: 2
 
       # Must be done before setup-node.
       - name: Enable Corepack
@@ -36,11 +35,8 @@ jobs:
         id: find-json
         run: |
           # Get the list of added JSON files in the records/new/ directory
-          ADDED_FILES=$(git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} --diff-filter=A --name-only | grep '^records/new/.*\.json$' || true)
-          echo "NEW_JSON_FILES=$ADDED_FILES" >> $GITHUB_ENV
-          if [ -z "$ADDED_FILES" ]; then
-            echo "No new JSON files found."
-          fi
+          ADDED_FILES=$(git diff HEAD^..HEAD --diff-filter=A --name-only records/new | grep '/.*\.json$' || true)
+          echo "NEW_JSON_FILES=$ADDED_FILES" >> "$GITHUB_ENV"
 
       - name: Validate files
         if: env.NEW_JSON_FILES
