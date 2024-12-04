@@ -1,23 +1,15 @@
 import AtpAgent, { RichText } from "@atproto/api";
-import assert from 'node:assert';
-
-// URL format:
-// 1. https://bsky.app/profile/${handle}/post/${postId}
-// 2. https://bsky.app/profile/${did}/post/${postId}
-// TODO(joyeecheung): consider supporting base other than bsky.app.
-const kURLPattern = /https:\/\/bsky\.app\/profile\/(.+)\/post\/(.+)/;
 
 /**
  * @param {string} url 
  */
-export function validatePostURL(url) {
-  const match = url.match(kURLPattern);
-  assert(match, `Post URL ${url} does not match the expected pattern`);
-
+export function PostURL(url) {
+  const kURLPattern = /https:\/\/bsky\.app\/profile\/(.+)\/post\/(.+)/;
+  const match_url = url.match(kURLPattern);
   return {
-    handle: match[1],
-    postId: match[2],
-    isDid: match[1].startsWith('did:')
+    handle: match_url[1],
+    postId: match_url[2],
+    isDid: match_url[1].startsWith('did:')
   };
 }
 
@@ -26,7 +18,7 @@ export function validatePostURL(url) {
  * @param {string} postUrl
  */
 export async function getPostInfoFromUrl(agent, postUrl) {
-  const { handle, postId, isDid } = validatePostURL(postUrl);
+  const { handle, postId, isDid } = PostURL(postUrl);
   let did;
   if (isDid) {
     did = handle;
@@ -42,15 +34,13 @@ export async function getPostInfoFromUrl(agent, postUrl) {
   return { uri, cid };
 }
 
-// URI format: at://${did}/app.bsky.feed.post/${postId}
-const kURIPattern = /at:\/\/(.*)+\/app\.bsky\.feed\.post\/(.*)+/
-export function validatePostURI(uri) {
-  const match = uri.match(kURIPattern);
-  assert(match, `Post URI ${uri} does not match the expected pattern`);
 
+export function PostURI(uri) {
+  const kURIPattern = /at:\/\/(.*)+\/app\.bsky\.feed\.post\/(.*)+/
+  const match_uri = uri.match(kURIPattern);
   return {
-    did: match[1],
-    postId: match[2]
+    did: match_uri[1],
+    postId: match_uri[2]
   };
 }
 
@@ -59,7 +49,7 @@ export function validatePostURI(uri) {
  * @param {string} uri
  */
 export async function getPostURLFromURI(agent, uri) {
-  const { did, postId } = validatePostURI(uri);
+  const { did, postId } = PostURI(uri);
   const profile = await agent.getProfile({ actor: did });
   const handle = profile.data.handle;
 
