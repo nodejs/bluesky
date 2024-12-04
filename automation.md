@@ -31,8 +31,9 @@ Records of requested and performed actions are under `./records`.
 Content automation is done in the form of adding new JSON files to `records/new`. To submit the request:
 
 1. Open a pull request targeting the `main` branch to add a JSON file or multiple JSON files to `records/new/`.
+     - Currently, the PR branch should be opened from the nodejs repository if you have write access to it, so that the PR gets full validation using the secrets in the repository. PRs from forks cannot get a full validation due to GitHub workflow restrictions.
      - The file name can be anything, as long as it ends with `.json`, though its better to give it a descriptive name like `repost.json`. The file will be renamed and moved to `records/processed` later so it doesn't matter how it is named during the draft phase.
-     - For example, see https://github.com/joyeecheung/bluesky-playground/pull/8
+     - For example, see https://github.com/nodejs/bluesky/pull/8
 2. The JSON files must contain at least the two required fields:
    - `"account"`: a pre-configured account name, see [repository setup](#set-up-automation-in-a-repository) on account name configuration.
      currently the following accounts are supported:
@@ -45,6 +46,7 @@ Content automation is done in the form of adding new JSON files to `records/new`
    - For other fields see the examples under [`records/new`](./records/new).
 3. When the PR is opened, the [validate-json](./.github/workflows/validate.yml) workflow will run to make sure the JSON files are correctly filled. It will verify the URLs filled in the JSON files are valid.
 4. When the PR is merged, the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
+5. When the process workflow is complete (likely within a minute), you should see a commit from the GitHub bot in the main branch moving the JSON file. **Important**: do not delete the PR branch until the process workflow is complete!
 
 ## Set up automation in a repository
 
