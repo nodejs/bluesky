@@ -1,0 +1,14 @@
+{
+  "action": "post",
+  "account": "NODEJS_ORG",
+  "richText": "Thanks to @targos.dev and @aduh95.bsky.social for a new Node.js Current release!\n\nhttps://nodejs.org/en/blog/release/v23.4.0\n\n- assert.partialDeepStrictEqual()\n- `--trace-env`\n- net.SocketAddress.parse()\n- Better net.BlockList support\n- Unflag `node:sqlite`\n- StatementSync.prototype.iterate()",
+  "result": {
+    "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3lcxut56zdv24",
+    "cid": "bafyreifpu7f5jirdfojafiwox63aquuqkmp2ry7pxythh6pq5spn6cqrri",
+    "commit": {
+      "cid": "bafyreidickjx4ayokkkxop6g2oqbnlzll5uruqdo5h5etqlpv5mfr66pwe",
+      "rev": "3lcxut57f2v24"
+    },
+    "validationStatus": "valid"
+  }
+}
