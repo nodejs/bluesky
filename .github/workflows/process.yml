@@ -20,7 +20,7 @@ jobs:
       - name: Compute number of pushed commits
         id: nb-of-commits
         run: |
-          echo "plusOne=$((${{ github.event.commits.added.length }} + 1))" >> $GITHUB_OUTPUT
+          echo "plusOne=$((${{ github.event.commits.added.length }} + 1))" >> "$GITHUB_OUTPUT"
 
       - name: Checkout repository
         uses: actions/checkout@v4
