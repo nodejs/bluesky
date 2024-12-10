@@ -1,5 +1,5 @@
 {
   "action": "post",
   "account": "NODEJS_ORG",
-  "richText": "Thanks to @targos.dev and @aduh95.bsky.social for a new Node.js Current release!\n\nhttps://nodejs.org/en/blog/release/v23.4.0\n\n- assert.partialDeepStrictEqual()\n- `--trace-env`\n- net.SocketAddress.parse()\n- Better net.BlockList support\n- Unflag `node:sqlite`\n- StatementSync.prototype.iterate()\n"
+  "richText": "Thanks to @targos.dev and @aduh95.bsky.social for a new Node.js Current release!\n\nhttps://nodejs.org/en/blog/release/v23.4.0\n\n- assert.partialDeepStrictEqual()\n- `--trace-env`\n- net.SocketAddress.parse()\n- Better net.BlockList support\n- Unflag `node:sqlite`\n- StatementSync.prototype.iterate()"
 }
