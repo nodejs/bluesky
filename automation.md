@@ -63,6 +63,7 @@ Content automation is done in the form of adding new JSON files to `records/new`
     ```
 
   There can be multiple accounts configured in the environment variables. The GitHub actions will process JSON files with an "account" field specifying which account they want to use to perform the action.
+3. Go to [Settings -> General -> Pull Requests](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-the-automatic-deletion-of-branches) in the repository setting to disable automatic deletion of Pull Request branches, because the automation needs the PR branches for a diff on merge.
 
 ## Develop and run tests
 
