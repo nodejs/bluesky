@@ -1,7 +1,8 @@
 name: Process newly added JSON
 
 on:
-  push:
+  pull_request_target:
+    types: [closed]
     branches:
       - main
 
@@ -14,18 +15,17 @@ concurrency:
 
 jobs:
   process-json:
+    # Only run if the PR was merged
+    if: github.event.pull_request.merged == true
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Compute number of pushed commits
-        id: nb-of-commits
-        run: |
-          echo "plusOne=$((${{ github.event.commits.added.length }} + 1))" >> "$GITHUB_OUTPUT"
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: ${{ steps.nb-of-commits.outputs.plusOne }}
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 2
 
       # Must be done before setup-node.
       - name: Enable Corepack
@@ -46,7 +46,7 @@ jobs:
         id: find-json
         run: |
           # Get the list of added JSON files in the records/new/ directory
-          ADDED_FILES=$(git diff HEAD~${{ steps.nb-of-commits.outputs.plusOne }} --diff-filter=A --name-only records/new | grep '/.*\.json$' || true)
+          ADDED_FILES=$(git diff HEAD^ --diff-filter=A --name-only records/new | grep '/.*\.json$' || true)
           echo "NEW_JSON_FILES=$ADDED_FILES" >> "$GITHUB_ENV"
 
       - name: Process and move files
@@ -59,15 +59,6 @@ jobs:
             echo "Processing $file..."
             node actions/process.js "$file"
           done
-      - name: Generate commit message
-        run: |
-          COMMIT_MESSAGE="Process new JSON files"
-          if [ "${{ steps.nb-of-commits.outputs.plusOne }}" = "2" ] && git log --format=%s -1 | grep -q ' (#[[:digit]]+)$'; then
-            LAST_COMMIT_MESSAGE="$(git log --format=%s -1)"
-            PR_ID="(${LAST_COMMIT_MESSAGE#*\(\#}"
-            COMMIT_MESSAGE="${COMMIT_MESSAGE} from #${PR_ID:1:-1}"
-          fi
-          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> "$GITHUB_ENV"
 
       - name: Commit and push changes
         if: env.NEW_JSON_FILES
@@ -75,5 +66,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add records/
-          git commit -m "$COMMIT_MESSAGE"
+          git commit -m "Process new JSON files from #${{ github.event.pull_request.number }}" || exit 0
           git push
