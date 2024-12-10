@@ -1,0 +1,18 @@
+{
+  "action": "repost",
+  "account": "NODEJS_ORG",
+  "repostURL": "https://bsky.app/profile/jordan.har.band/post/3lcixvbt24k2e",
+  "repostInfo": {
+    "uri": "at://did:plc:n35epuqprua3zffhk4dzkiff/app.bsky.feed.post/3lcixvbt24k2e",
+    "cid": "bafyreih4srvofsk3qevczvxjc6eqcxx2vy5gr3nwpd4b726h62l7uwq3xu"
+  },
+  "result": {
+    "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.repost/3lcy7xuzx2524",
+    "cid": "bafyreihxh4ogxo7anb5imgyik6ox4ada7uj4spjgnyzjywlbyggnk65t54",
+    "commit": {
+      "cid": "bafyreiayqtbsq42xw7ewfepus3naocn7acwa47mpnuetx6ltrfhmujq7je",
+      "rev": "3lcy7xv22x524"
+    },
+    "validationStatus": "valid"
+  }
+}
