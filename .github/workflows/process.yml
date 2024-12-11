@@ -67,4 +67,4 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add records/
           git commit -m "Process new JSON files from #${{ github.event.pull_request.number }}" || exit 0
-          git push origin HEAD:main
+          git push origin HEAD:refs/heads/main
