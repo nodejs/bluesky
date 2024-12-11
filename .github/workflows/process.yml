@@ -55,8 +55,8 @@ jobs:
       - name: Process and move files
         if: env.NEW_JSON_FILES
         env:
-          BLUESKY_IDENTIFIER_NODEJS_ORG: nodejs.org
-          BLUESKY_APP_PASSWORD_NODEJS_ORG: ${{ secrets.BLUESKY_APP_PASSWORD_NODEJS_ORG }}
+          BLUESKY_IDENTIFIER_PIXEL: pixel-voyager.bsky.social
+          BLUESKY_APP_PASSWORD_PIXEL: ${{ secrets.BLUESKY_APP_PASSWORD_PIXEL }}
         run: |
           for file in $NEW_JSON_FILES; do
             echo "Processing $file..."
