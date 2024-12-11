@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   process-json:
-    # Only run if the PR was merged and it is opened from same repo
+    # Only run if the PR was merged and it is opened from a forked repo
     if: github.event.pull_request.merged == true && github.event.pull_request.head.repo.full_name == github.repository
 
     runs-on: ubuntu-latest
@@ -60,7 +60,7 @@ jobs:
         run: |
           for file in $NEW_JSON_FILES; do
             echo "Processing $file..."
-            node actions/process.js "$file" validate_cred.js
+            node actions/process.js "$file" validate_cred_fork.js
           done
 
       - name: Commit and push changes

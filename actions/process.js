@@ -12,9 +12,11 @@ import { validateAccount, validateRequest, ExtendRequestReferences } from './lib
 // $base_path/processed/$YYYY-$MM-$DD-$ID.json, where $ID is an incremental number
 // starting from 0 based on the number of existing JSONs processed on the same date
 // and already in the processed directory.
+// Validation checks performed based on where pr is opened
 
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
-const { agent, request, requestFilePath } = await import('./login.js');
+assert(process.argv[3], `Usage: node process.js $base_path/new/$any_name.json required_auth.js`);
+const { agent, request, requestFilePath } = await import(`./${process.argv[3]}`);
 
 let result;
 switch(request.action) {
