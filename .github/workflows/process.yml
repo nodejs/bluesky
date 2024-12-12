@@ -64,12 +64,13 @@ jobs:
       - name: Commit and push changes
         if: env.NEW_JSON_FILES
         run: |
+          git add records/
           node actions/lib/createCommitOnBranch.mjs \
             "$GITHUB_REPOSITORY" \
             "main" \
             "$(git rev-parse HEAD)" \
-            "$(git diff --diff-filter=d --name-only --format=)" \
-            "$(git diff --diff-filter=D --name-only --format=)" \
+            "$(git diff HEAD --diff-filter=d --name-only --format=)" \
+            "$(git diff HEAD --diff-filter=D --name-only --format=)" \
             "Process new JSON files from #${{ github.event.pull_request.number }}"
         env:
           GH_TOKEN: ${{ github.token }}
