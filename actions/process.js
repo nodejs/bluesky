@@ -57,10 +57,10 @@ if (!fs.existsSync(processedDir)) {
 
 // Construct the new file path as $base_path/processed/YYYY-MM-DD-ID.json
 let nextId = 0;
-let newFile;
+let newFile, newFilePath;
 do {
   const newFileName = `${date}-${nextId}.json`;
-  const newFilePath = path.join(processedDir, newFileName);
+  newFilePath = path.join(processedDir, newFileName);
   try {
     newFile = await fs.promises.open(newFilePath, 'wx');
   } catch (err) {
@@ -68,9 +68,6 @@ do {
     nextId++;
   }
 } while (newFile == null);
-
-const newFileName = `${date}-${nextId}.json`;
-const newFilePath = path.join(processedDir, newFileName);
 
 console.log('Writing..', newFilePath);
 await newFile.writeFile(JSON.stringify(request, null, 2), 'utf8');
