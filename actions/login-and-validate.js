@@ -1,3 +1,4 @@
+import assert from 'node:assert';
 import fs from 'node:fs';
 import process from 'node:process';
 import path from 'node:path';
@@ -12,6 +13,12 @@ import { validateAccount, validateRequest, validateAndExtendRequestReferences } 
 
 const requestFilePath = path.resolve(process.argv[2]);
 const request = JSON.parse(fs.readFileSync(requestFilePath, 'utf8'));
+if (Object.hasOwn(request, 'richTextFile')) {
+  assert(!path.isAbsolute(request.richTextFile));
+  request.richText = fs.readFileSync(
+    path.resolve(path.dirname(requestFilePath), request.richTextFile),
+    'utf-8');
+}
 
 // Validate the account field.
 const account = validateAccount(request, process.env);
