@@ -77,6 +77,6 @@ await newFile.writeFile(JSON.stringify(request, null, 2), 'utf8');
 await newFile.close();
 
 console.log(`Removing..${requestFilePath}`);
-fs.rmSyn(requestFilePath);
+fs.rmSync(requestFilePath);
 
 console.log(`Processed and moved file: ${requestFilePath} -> ${newFilePath}`);
