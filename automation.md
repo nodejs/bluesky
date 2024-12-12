@@ -45,7 +45,7 @@ Content automation is done in the form of adding new JSON files to `records/new`
      - `"quote-post"`: quote an existing post specified by `"repostURL"`, with new content specified by `"richText"`
    - For other fields see the examples under [`records/new`](./records/new).
 3. When the PR is opened, the [validate-json](./.github/workflows/validate.yml) workflow will run to make sure the JSON files are correctly filled. It will verify the URLs filled in the JSON files are valid.
-4. When the PR is merged, the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
+4. When the PR is merged (either with _Squash and merge_ or with a merge commit, _Rebase and merge_ is not supported), the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
 5. When the process workflow is complete (likely within a minute), you should see a commit from the GitHub bot in the main branch moving the JSON file.
 
 ## Set up automation in a repository
