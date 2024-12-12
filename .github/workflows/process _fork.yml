@@ -1,7 +1,7 @@
 name: Process newly added JSON
 
 on:
-  pull_request_target:
+  pull_request:
     types: [closed]
     branches:
       - main
@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   process-json:
-    # Only run if the PR was merged and it is opened from same repo
+    # Only run if the PR was merged and it is opened from a forked repo
     if: github.event.pull_request.merged == true && github.event.pull_request.head.repo.full_name == github.repository
 
     runs-on: ubuntu-latest
@@ -24,8 +24,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
-          fetch-depth: 2
+          # Needed to push changes back to the repo
+          fetch-depth: 0
 
       # Must be done before setup-node.
       - name: Enable Corepack
@@ -46,8 +46,11 @@ jobs:
         id: find-json
         run: |
           # Get the list of added JSON files in the records/new/ directory
-          ADDED_FILES=$(git diff HEAD^ --diff-filter=A --name-only records/new | grep '/.*\.json$' || true)
-          echo "NEW_JSON_FILES=$ADDED_FILES" >> "$GITHUB_ENV"
+          ADDED_FILES=$(git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} --diff-filter=A --name-only | grep '^records/new/.*\.json$' || true)
+          echo "NEW_JSON_FILES=$ADDED_FILES" >> $GITHUB_ENV
+          if [ -z "$ADDED_FILES" ]; then
+            echo "No new JSON files found."
+          fi
 
       - name: Process and move files
         if: env.NEW_JSON_FILES
@@ -57,7 +60,7 @@ jobs:
         run: |
           for file in $NEW_JSON_FILES; do
             echo "Processing $file..."
-            node actions/process.js "$file" validate_cred.js
+            node actions/process.js "$file" validate_cred_fork.js
           done
 
       - name: Commit and push changes
@@ -65,6 +68,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add records/
+          git add records/*
           git commit -m "Process new JSON files from #${{ github.event.pull_request.number }}" || exit 0
-          git push origin HEAD:refs/heads/main
+          git push

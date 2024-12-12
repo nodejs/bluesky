@@ -4,7 +4,7 @@ import process from 'node:process';
 import path from 'node:path';
 import { login } from './lib/login.js';
 import { post } from './lib/posts.js';
-import { validateAccount, validateRequest, validateAndExtendRequestReferences } from './lib/validator.js';
+import { validateAccount, validateRequest, ExtendRequestReferences } from './lib/validator.js';
 
 // This script takes a path to a JSON with the pattern $base_path/new/$any_name.json,
 // where $any_name can be anything, and then performs the action specified in it.
@@ -12,9 +12,11 @@ import { validateAccount, validateRequest, validateAndExtendRequestReferences } 
 // $base_path/processed/$YYYY-$MM-$DD-$ID.json, where $ID is an incremental number
 // starting from 0 based on the number of existing JSONs processed on the same date
 // and already in the processed directory.
+// Validation checks performed based on where pr is opened
 
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
-const { agent, request, requestFilePath } = await import('./login-and-validate.js');
+assert(process.argv[3], `Usage: node process.js $base_path/new/$any_name.json required_auth.js`);
+const { agent, request, requestFilePath } = await import(`./${process.argv[3]}`);
 
 let result;
 switch(request.action) {
@@ -25,7 +27,7 @@ switch(request.action) {
   };
   case 'repost': {
     console.log('Reposting...', request.repostURL);
-    assert(request.repostInfo);  // Extended by validateAndExtendRequestReferences.
+    assert(request.repostInfo);  // Extended by ExtendRequestReferences.
     result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
     break;
   }
