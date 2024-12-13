@@ -14,11 +14,11 @@ import { validateAccount, validateRequest, validateAndExtendRequestReferences } 
 
 const requestFilePath = path.resolve(process.argv[2]);
 const request = JSON.parse(fs.readFileSync(requestFilePath, 'utf8'));
+let richTextFile;
 if (Object.hasOwn(request, 'richTextFile')) {
   assert(!path.isAbsolute(request.richTextFile));
-  const richTextFile = path.resolve(path.dirname(requestFilePath), request.richTextFile);
+  richTextFile = path.resolve(path.dirname(requestFilePath), request.richTextFile);
   request.richText = fs.readFileSync(richTextFile, 'utf-8');
-  fs.rmSync(richTextFile);
 }
 
 // Validate the account field.
@@ -31,4 +31,4 @@ const agent = await login(account);
 // Validate and extend the post URLs in the request into { cid, uri } records.
 await validateAndExtendRequestReferences(agent, request);
 
-export { agent, request, requestFilePath };
+export { agent, request, requestFilePath, richTextFile };
