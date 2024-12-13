@@ -39,10 +39,10 @@ Content automation is done in the form of adding new JSON files to `records/new`
      currently the following accounts are supported:
        - `NODEJS_ORG`: for [nodejs.org](https://bsky.app/profile/nodejs.org) on Bluesky
    - `"action"`: Currently, the following actions are supported:
-     - `"post"`: post new content specified by `"richText"`
+     - `"post"`: post new content specified by `"richText"` (or `"richTextFile"` if it's more convenient to edit the content from a separate text file).
      - `"repost"`: repost an existing post specified by `"repostURL"`
-     - `"reply"`: reply to an existing post specified by `"replyURL"`, with content specified by `"richText"`
-     - `"quote-post"`: quote an existing post specified by `"repostURL"`, with new content specified by `"richText"`
+     - `"reply"`: reply to an existing post specified by `"replyURL"`, with content specified by `"richText"` (or `"richTextFile"` if it's more convenient to edit the content from a separate text file).
+     - `"quote-post"`: quote an existing post specified by `"repostURL"`, with new content specified by `"richText"` (or `"richTextFile"` if it's more convenient to edit the content from a separate text file).
    - For other fields see the examples under [`records/new`](./records/new).
 3. When the PR is opened, the [validate-json](./.github/workflows/validate.yml) workflow will run to make sure the JSON files are correctly filled. It will verify the URLs filled in the JSON files are valid.
 4. When the PR is merged (either with _Squash and merge_ or with a merge commit, _Rebase and merge_ is not supported), the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
