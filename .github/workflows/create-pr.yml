@@ -1,0 +1,94 @@
+name: Create a PR
+
+on:
+    workflow_dispatch:
+        inputs:
+            account:
+                type: string
+                default: NODEJS_ORG
+            action:
+                type: choice
+                default: auto
+                options: [auto, post, repost, reply, quote-post]
+                description: Type of action you want to perform (you can skip it except for "reply").
+            postURL:
+                type: string
+                description: URL of the POST you'd like to retweet/quote-tweet/reply
+                required: false
+            richText:
+                type: string
+                description: Content of the post
+                required: false
+            prTitle:
+                type: string
+                description: Title of the PR and commit message
+                required: true
+            prBody:
+                type: string
+                description: Body of the PR
+                required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  process-json:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Guess action
+          if: inputs.action == 'auto'
+          id: guess-action
+          run: |
+            if [ -n "$POST_URL" ] && [ -n "$RICH_TEXT" ]; then
+              echo "action=quote-post" >> "$GITHUB_OUTPUT"
+            elif [ -n "$RICH_TEXT" ]; then
+              echo "action=post" >> "$GITHUB_OUTPUT"
+            elif [ -n "$POST_URL" ]; then
+              echo "action=repost" >> "$GITHUB_OUTPUT"
+            fi
+          env:
+            POST_URL: ${{ inputs.postURL }}
+            RICH_TEXT: ${{ inputs.richText }}
+              
+        - name: Write JSON file
+          run: |
+            RICH_TEXT_DEFINITION=
+            if [ -n "$RICH_TEXT" ]; then
+              printf "%s" "$RICH_TEXT" > records/new/rich.txt
+              RICH_TEXT_DEFINITION=', richTextFile: "./rich.txt"'
+            fi
+
+            URL_FIELD_DEFINITION=
+            if [ "$ACTION" = "reply" ]; then
+              URL_FIELD_DEFINITION=', replyURL: env.URL'
+            elif [ "$ACTION" = "quote-post" ] || [ "$ACTION" = "repost" ]; then
+              URL_FIELD_DEFINITION=', repostURL: env.URL'
+            fi
+
+            echo '{}' | jq "{ action: env.ACTION, account: env.ACCOUNT $RICH_TEXT_DEFINITION $URL_FIELD_DEFINITION }" > records/new/new.json
+            cat records/new/new.json
+            [ -z "$RICH_TEXT" ] || cat records/new/rich.txt
+          env:
+            ACCOUNT: ${{ inputs.account }}
+            ACTION: ${{ steps.guess-action.outputs.action || inputs.action }}
+            RICH_TEXT: ${{ inputs.richText }}
+            URL: ${{ inputs.postURL }}
+
+        - name: Create Pull Request
+          run: |
+            git config set user.name "$GITHUB_ACTOR"
+            git config set user.email "$GITHUB_ACTOR@users.noreply.github.com"
+            BRANCH_NAME="action/$(node -p 'crypto.randomUUID()')"
+            git add records/new
+            git commit -m "$PR_TITLE"
+            git push origin "HEAD:refs/heads/$BRANCH_NAME"
+            gh pr create --draft --head "$BRANCH_NAME" --title "$PR_TITLE" --body "$PR_BODY" --assignee "$GITHUB_ACTOR"
+          env:
+            GITHUB_TOKEN: ${{ github.token }}
+            PR_TITLE: ${{ inputs.prTitle }}
+            PR_BODY: ${{ inputs.prBody }}
