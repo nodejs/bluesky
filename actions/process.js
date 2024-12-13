@@ -1,10 +1,10 @@
+#!/usr/bin/env node
+
 import fs from 'node:fs';
 import assert from 'node:assert';
 import process from 'node:process';
 import path from 'node:path';
-import { login } from './lib/login.js';
 import { post } from './lib/posts.js';
-import { validateAccount, validateRequest, validateAndExtendRequestReferences } from './lib/validator.js';
 
 // This script takes a path to a JSON with the pattern $base_path/new/$any_name.json,
 // where $any_name can be anything, and then performs the action specified in it.
@@ -47,7 +47,7 @@ console.log('Result', result);
 // Extend the result to be written to the processed JSON file.
 request.result = result;
 
-const date = (new Date()).toISOString().split('T')[0];
+const date = new Date().toISOString().slice(0, 10);
 
 const processedDir = path.join(requestFilePath, '..', '..', 'processed');
 // Make sure the processed directory exists.
@@ -55,20 +55,25 @@ if (!fs.existsSync(processedDir)) {
   fs.mkdirSync(processedDir, { recursive: true });
 }
 
-// Find all processed files for the current date to generate the next incremental ID.
-const filesForDate = fs.readdirSync(processedDir).filter(
-  (file) => file.startsWith(date) && file.endsWith('.json')
-);
-const nextId = filesForDate.length;
-
 // Construct the new file path as $base_path/processed/YYYY-MM-DD-ID.json
-const newFileName = `${date}-${nextId}.json`;
-const newFilePath = path.join(processedDir, newFileName);
+let nextId = 0;
+let newFile, newFilePath;
+do {
+  const newFileName = `${date}-${nextId}.json`;
+  newFilePath = path.join(processedDir, newFileName);
+  try {
+    newFile = await fs.promises.open(newFilePath, 'wx');
+  } catch (err) {
+    if (err.code !== 'EEXIST') throw err;
+    nextId++;
+  }
+} while (newFile == null);
 
-console.log('Writing..', requestFilePath);
-fs.writeFileSync(requestFilePath, JSON.stringify(request, null, 2), 'utf8');
+console.log('Writing..', newFilePath);
+await newFile.writeFile(JSON.stringify(request, null, 2), 'utf8');
+await newFile.close();
 
-console.log(`Moving..${requestFilePath} -> ${newFilePath}`);
-fs.renameSync(requestFilePath, newFilePath);
+console.log(`Removing..${requestFilePath}`);
+fs.rmSync(requestFilePath);
 
 console.log(`Processed and moved file: ${requestFilePath} -> ${newFilePath}`);

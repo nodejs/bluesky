@@ -20,21 +20,30 @@ export function validateAccount(request, env) {
 export function validateRequest(request) {
   switch(request.action) {
     case 'post': {
-      assert(request.richText, 'JSON must contain "richText" field');
+      assert(typeof request.richText === 'string', 'JSON must contain "richText" string field');
+      assert(
+        request.richText.length > 0 && request.richText.length <= 300,
+        '"richText" field cannot be longer than 300 chars');
       break;
     };
     case 'repost': {
-      assert(request.repostURL, 'JSON must contain "repostURL" field');
+      assert(typeof request.repostURL === 'string', 'JSON must contain "repostURL" string field');
       break;
     }
     case 'quote-post': {
-      assert(request.richText, 'JSON must contain "richText" field');
-      assert(request.repostURL, 'JSON must contain "repostURL" field');
+      assert(typeof request.richText === 'string', 'JSON must contain "richText" string field');
+      assert(
+        request.richText.length > 0 && request.richText.length <= 300,
+        '"richText" field cannot be longer than 300 chars');
+      assert(typeof request.repostURL === 'string', 'JSON must contain "repostURL" string field');
       break;
     }
     case 'reply': {
-      assert(request.richText, 'JSON must contain "richText" field');
-      assert(request.replyURL, 'JSON must contain "replyURL" field');
+      assert(typeof request.richText === 'string', 'JSON must contain "richText" string field');
+      assert(
+        request.richText.length > 0 && request.richText.length <= 300,
+        '"richText" field cannot be longer than 300 chars');
+      assert(typeof request.replyURL === 'string', 'JSON must contain "replyURL" string field');
       break;
     }
     default:
