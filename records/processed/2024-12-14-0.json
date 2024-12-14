@@ -1,0 +1,18 @@
+{
+  "action": "repost",
+  "account": "NODEJS_ORG",
+  "repostURL": "https://bsky.app/profile/brianmuenzenmeyer.com/post/3ld7vhp3fh22c",
+  "repostInfo": {
+    "uri": "at://did:plc:wyohlx5jfegmcrhp4shjpqmo/app.bsky.feed.post/3ld7vhp3fh22c",
+    "cid": "bafyreihah5lzs2eidg7t7gdzgdo6mfmsk4okcodprwaf4wq2rsqwfqx664"
+  },
+  "result": {
+    "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.repost/3ldc36sqjfu23",
+    "cid": "bafyreievtdqgdckobeydn4ipsk2fh7wjgxgc3zkyrzirqmlgi55i2rotmu",
+    "commit": {
+      "cid": "bafyreic3hbh63pxt5zduo2spbvt2eiqr2wfxpk4buhgxwqjb57m475336a",
+      "rev": "3ldc36sqr7u23"
+    },
+    "validationStatus": "valid"
+  }
+}
