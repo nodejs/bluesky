@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+import assert from 'node:assert';
 import fs from 'node:fs';
 import process from 'node:process';
 import path from 'node:path';
@@ -12,6 +14,12 @@ import { validateAccount, validateRequest, validateAndExtendRequestReferences } 
 
 const requestFilePath = path.resolve(process.argv[2]);
 const request = JSON.parse(fs.readFileSync(requestFilePath, 'utf8'));
+let richTextFile;
+if (Object.hasOwn(request, 'richTextFile')) {
+  assert(!path.isAbsolute(request.richTextFile));
+  richTextFile = path.resolve(path.dirname(requestFilePath), request.richTextFile);
+  request.richText = fs.readFileSync(richTextFile, 'utf-8');
+}
 
 // Validate the account field.
 const account = validateAccount(request, process.env);
@@ -23,4 +31,4 @@ const agent = await login(account);
 // Validate and extend the post URLs in the request into { cid, uri } records.
 await validateAndExtendRequestReferences(agent, request);
 
-export { agent, request, requestFilePath };
+export { agent, request, requestFilePath, richTextFile };

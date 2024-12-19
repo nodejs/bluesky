@@ -14,7 +14,7 @@ import { post } from './lib/posts.js';
 // and already in the processed directory.
 
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
-const { agent, request, requestFilePath } = await import('./login-and-validate.js');
+const { agent, request, requestFilePath, richTextFile } = await import('./login-and-validate.js');
 
 let result;
 switch(request.action) {
@@ -75,5 +75,10 @@ await newFile.close();
 
 console.log(`Removing..${requestFilePath}`);
 fs.rmSync(requestFilePath);
+if (richTextFile) {
+  console.log(`Removing..${richTextFile}`);
+  fs.rmSync(richTextFile);
+}
+
 
 console.log(`Processed and moved file: ${requestFilePath} -> ${newFilePath}`);
