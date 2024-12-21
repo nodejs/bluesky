@@ -4,7 +4,8 @@ import fs from 'node:fs';
 import process from 'node:process';
 import path from 'node:path';
 import { login } from './lib/login.js';
-import { validateAccount, validateRequest, validateAndExtendRequestReferences } from './lib/validator.js';
+import { validateAccount, validateRequest } from './lib/validator.js';
+import { populateRecord } from './lib/posts.js';
 
 // The JSON file must contains the following fields:
 // - "account": a string field indicating the account to use to perform the action.
@@ -28,7 +29,7 @@ validateRequest(request);
 // Authenticate.
 const agent = await login(account);
 
-// Validate and extend the post URLs in the request into { cid, uri } records.
-await validateAndExtendRequestReferences(agent, request);
+// Check if the links included are reachable.
+await populateRecord(agent, request, false);
 
 export { agent, request, requestFilePath, richTextFile };

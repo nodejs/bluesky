@@ -25,7 +25,7 @@ switch(request.action) {
   };
   case 'repost': {
     console.log('Reposting...', request.repostURL);
-    assert(request.repostInfo);  // Extended by validateAndExtendRequestReferences.
+    assert(request.repostInfo);  // Extended by populateRecord in login-and-validate.js.
     result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
     break;
   }
