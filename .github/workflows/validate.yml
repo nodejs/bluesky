@@ -1,10 +1,13 @@
 name: Validate newly added JSON
 
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - synchronize
+
+permissions:
+  contents: read
 
 jobs:
   validate-json:
@@ -15,10 +18,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          persist-credentials: false
 
       # Must be done before setup-node.
       - name: Enable Corepack
         run: corepack enable
+
+      # We are using `pull_request_target`, meaning untrusted code could access the secrets.
+      # For PRs from forks, we want to rollback to the trusted version of `actions/`. Other
+      # directories do not contain any runnable code.
+      - if: github.event.pull_request.head.repo.full_name != github.repository
+        run: git checkout HEAD^ -- actions/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
