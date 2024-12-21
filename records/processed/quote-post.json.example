@@ -1,6 +1,6 @@
 {
   "action": "quote-post",
-  "account": "PIXEL",
+  "account": "PRIMARY",
   "richText": "Quote post from automation",
   "repostURL": "https://bsky.app/profile/pixel-voyager.bsky.social/post/3lbnijyd24t2i",
   "repostInfo": {

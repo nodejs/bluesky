@@ -98,11 +98,11 @@ cd ./actions
 node --env-file=./.env.bluesky test/integration.js
 ```
 
-All files starting with .env are ignored in this repository, you could save the credentials there, like in the `.env.bluesky` used above, if the account is named `PIXEL`, it should have:
+All files starting with .env are ignored in this repository, you could save the credentials there, like in the `.env.bluesky` used above, if the account is named `PRIMARY`, it should have:
 
 ```
-BLUESKY_IDENTIFIER_PIXEL=... # The Bluesky handle
-BLUESKY_APP_PASSWORD_PIXEL=... # The app password
+BLUESKY_IDENTIFIER_PRIMARY=... # The Bluesky handle
+BLUESKY_APP_PASSWORD_PRIMARY=... # The app password
 ```
 
 [thematic break]: https://spec.commonmark.org/0.31.2/#thematic-breaks
