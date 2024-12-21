@@ -1,0 +1,13 @@
+documentation:
+- changed-files:
+  - any-glob-to-any-file: '**/*.md'
+
+action-request:
+- changed-files:
+  - any-glob-to-any-file: records/new/**
+
+automation:
+- changed-files:
+  - any-glob-to-any-file:
+    - actions/**
+    - .github/**/*.yml
