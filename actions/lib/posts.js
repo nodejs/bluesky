@@ -102,7 +102,7 @@ export async function post(agent, request) {
       request.replyInfo = await getPostInfoFromUrl(agent, request.replyURL);
     }
     record.reply = {
-      root: request.replyInfo,
+      root: request.rootInfo || request.replyInfo,
       parent: request.replyInfo,
     };
   }

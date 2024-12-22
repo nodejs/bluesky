@@ -16,6 +16,7 @@ import { post, REPLY_IN_THREAD } from './lib/posts.js';
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
 const { agent, requests, requestFilePath, richTextFile } = await import('./login-and-validate.js');
 
+let rootPostInfo;
 let previousPostInfo;
 for (const request of requests) {
   let result;
@@ -39,6 +40,7 @@ for (const request of requests) {
     case 'reply': {
       if (request.replyURL === REPLY_IN_THREAD) {
         request.replyInfo = previousPostInfo;
+        request.rootInfo = rootPostInfo;
       }
       console.log(`Replying...`, request.replyURL, request.richText);
       result = await post(agent, request);
@@ -54,6 +56,7 @@ for (const request of requests) {
     uri: result.uri,
     cid: result.cid,
   };
+  rootPostInfo ??= previousPostInfo;
 }
 
 const date = new Date().toISOString().slice(0, 10);
