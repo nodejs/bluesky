@@ -43,7 +43,7 @@ export function validateRequest(request) {
       assert(
         request.richText.length > 0 && request.richText.length <= 300,
         '"richText" field cannot be longer than 300 chars');
-      assert(typeof request.replyURL === 'string', 'JSON must contain "replyURL" string field');
+      assert(typeof request.replyURL === 'string' || request.replyURL === REPLY_IN_THREAD, 'JSON must contain "replyURL" string field');
       break;
     }
     default:
