@@ -1,6 +1,8 @@
 import AtpAgent, { RichText } from "@atproto/api";
 import assert from 'node:assert';
 
+export const REPLY_IN_THREAD = Symbol('Reply in thread');
+
 // URL format:
 // 1. https://bsky.app/profile/${handle}/post/${postId}
 // 2. https://bsky.app/profile/${did}/post/${postId}

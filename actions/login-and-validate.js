@@ -5,6 +5,7 @@ import process from 'node:process';
 import path from 'node:path';
 import { login } from './lib/login.js';
 import { validateAccount, validateRequest, validateAndExtendRequestReferences } from './lib/validator.js';
+import { REPLY_IN_THREAD } from './lib/posts.js';
 
 // The JSON file must contains the following fields:
 // - "account": a string field indicating the account to use to perform the action.
@@ -26,7 +27,7 @@ const requests = threadElements?.length ?
         ...request,
         ...(i === 0 ? undefined : {
             action: 'reply',
-            replyURL: 'REPLACEME'
+            replyURL: REPLY_IN_THREAD,
         }),
         richText,
     })) : [request];

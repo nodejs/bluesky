@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import assert from 'node:assert';
 import process from 'node:process';
 import path from 'node:path';
-import { post } from './lib/posts.js';
+import { post, REPLY_IN_THREAD } from './lib/posts.js';
 
 // This script takes a path to a JSON with the pattern $base_path/new/$any_name.json,
 // where $any_name can be anything, and then performs the action specified in it.
@@ -16,7 +16,7 @@ import { post } from './lib/posts.js';
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
 const { agent, requests, requestFilePath, richTextFile } = await import('./login-and-validate.js');
 
-let previousPostURL;
+let previousPostInfo;
 for (const request of requests) {
   let result;
   switch(request.action) {
@@ -37,8 +37,8 @@ for (const request of requests) {
       break;
     }
     case 'reply': {
-      if (request.replyURL === 'REPLACEME') {
-        request.replyURL = previousPostURL;
+      if (request.replyURL === REPLY_IN_THREAD) {
+        request.replyInfo = previousPostInfo;
       }
       console.log(`Replying...`, request.replyURL, request.richText);
       result = await post(agent, request);
@@ -50,7 +50,10 @@ for (const request of requests) {
   console.log('Result', result);
   // Extend the result to be written to the processed JSON file.
   request.result = result;
-  previousPostURL = result.uri;
+  previousPostInfo = {
+    uri: result.uri,
+    cid: result.cid,
+  };
 }
 
 const date = new Date().toISOString().slice(0, 10);
