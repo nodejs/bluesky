@@ -20,15 +20,25 @@ if (Object.hasOwn(request, 'richTextFile')) {
   richTextFile = path.resolve(path.dirname(requestFilePath), request.richTextFile);
   request.richText = fs.readFileSync(richTextFile, 'utf-8');
 }
+const threadElements = request.action !== 'repost' && request.richText?.split(/\n\n---+\n\n/g);
+const requests = threadElements?.length ?
+    threadElements.map((richText, i) => ({
+        ...request,
+        ...(i === 0 ? undefined : {
+            action: 'reply',
+            replyURL: 'REPLACEME'
+        }),
+        richText,
+    })) : [request];
 
 // Validate the account field.
 const account = validateAccount(request, process.env);
-validateRequest(request);
+requests.forEach(validateRequest);
 
 // Authenticate.
 const agent = await login(account);
 
 // Validate and extend the post URLs in the request into { cid, uri } records.
-await validateAndExtendRequestReferences(agent, request);
+await Promise.all(requests.map(request => validateAndExtendRequestReferences(agent, request)));
 
-export { agent, request, requestFilePath, richTextFile };
+export { agent, requests, requestFilePath, richTextFile };

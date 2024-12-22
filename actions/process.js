@@ -14,38 +14,44 @@ import { post } from './lib/posts.js';
 // and already in the processed directory.
 
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
-const { agent, request, requestFilePath, richTextFile } = await import('./login-and-validate.js');
+const { agent, requests, requestFilePath, richTextFile } = await import('./login-and-validate.js');
 
-let result;
-switch(request.action) {
-  case 'post': {
-    console.log(`Posting...`, request.richText);
-    result = await post(agent, request);
-    break;
-  };
-  case 'repost': {
-    console.log('Reposting...', request.repostURL);
-    assert(request.repostInfo);  // Extended by validateAndExtendRequestReferences.
-    result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
-    break;
+let previousPostURL;
+for (const request of requests) {
+  let result;
+  switch(request.action) {
+    case 'post': {
+      console.log(`Posting...`, request.richText);
+      result = await post(agent, request);
+      break;
+    };
+    case 'repost': {
+      console.log('Reposting...', request.repostURL);
+      assert(request.repostInfo);  // Extended by validateAndExtendRequestReferences.
+      result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
+      break;
+    }
+    case 'quote-post': {
+      console.log(`Quote posting...`, request.repostURL, request.richText);
+      result = await post(agent, request);
+      break;
+    }
+    case 'reply': {
+      if (request.replyURL === 'REPLACEME') {
+        request.replyURL = previousPostURL;
+      }
+      console.log(`Replying...`, request.replyURL, request.richText);
+      result = await post(agent, request);
+      break;
+    }
+    default:
+      assert.fail('Unknown action ' + request.action);
   }
-  case 'quote-post': {
-    console.log(`Quote posting...`, request.repostURL, request.richText);
-    result = await post(agent, request);
-    break;
-  }
-  case 'reply': {
-    console.log(`Replying...`, request.replyURL, request.richText);
-    result = await post(agent, request);
-    break;
-  }
-  default:
-    assert.fail('Unknown action ' + request.action);
+  console.log('Result', result);
+  // Extend the result to be written to the processed JSON file.
+  request.result = result;
+  previousPostURL = result.uri;
 }
-
-console.log('Result', result);
-// Extend the result to be written to the processed JSON file.
-request.result = result;
 
 const date = new Date().toISOString().slice(0, 10);
 
@@ -70,7 +76,7 @@ do {
 } while (newFile == null);
 
 console.log('Writing..', newFilePath);
-await newFile.writeFile(JSON.stringify(request, null, 2), 'utf8');
+await newFile.writeFile(JSON.stringify(requests, null, 2), 'utf8');
 await newFile.close();
 
 console.log(`Removing..${requestFilePath}`);
