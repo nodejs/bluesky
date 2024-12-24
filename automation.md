@@ -51,8 +51,7 @@ Content automation is done in the form of adding new JSON files to `records/new`
 ### Threads
 
 To send several messages replying to one another, you can separate each tweet
-using a Markdown thematic break (e.g. a new paragraph consisting of only three
-dashes) inside the `richText` or `richTextFile`:
+using a Markdown [thematic break][] inside the `richText` or `richTextFile`:
 
 ```markdown
 Here is the first tweet.
@@ -105,3 +104,5 @@ All files starting with .env are ignored in this repository, you could save the 
 BLUESKY_IDENTIFIER_PIXEL=... # The Bluesky handle
 BLUESKY_APP_PASSWORD_PIXEL=... # The app password
 ```
+
+[thematic break]: https://spec.commonmark.org/0.31.2/#thematic-breaks

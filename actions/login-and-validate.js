@@ -21,7 +21,7 @@ if (Object.hasOwn(request, 'richTextFile')) {
   richTextFile = path.resolve(path.dirname(requestFilePath), request.richTextFile);
   request.richText = fs.readFileSync(richTextFile, 'utf-8');
 }
-const threadElements = request.action !== 'repost' && request.richText?.split(/\n\n {0,3}[-_*]{3,}\n\n/g);
+const threadElements = request.action !== 'repost' && request.richText?.split(/\n+ {0,3}([-_*])[ \t]*(?:\1[ \t]*){2,}\n+/g);
 const requests = threadElements?.length ?
     threadElements.map((richText, i) => ({
         ...request,
