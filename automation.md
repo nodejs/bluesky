@@ -51,8 +51,8 @@ Content automation is done in the form of adding new JSON files to `records/new`
 ### Threads
 
 To send several messages replying to one another, you can separate each tweet
-using a Markdown separator (a new paragraph consisting of only three dashes or
-more) inside the `richText` or `richTextFile`:
+using a Markdown thematic break (e.g. a new paragraph consisting of only three
+dashes) inside the `richText` or `richTextFile`:
 
 ```markdown
 Here is the first tweet.
