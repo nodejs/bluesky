@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import assert from 'node:assert';
 import process from 'node:process';
 import path from 'node:path';
-import { post } from './lib/posts.js';
+import { post, REPLY_IN_THREAD } from './lib/posts.js';
 
 // This script takes a path to a JSON with the pattern $base_path/new/$any_name.json,
 // where $any_name can be anything, and then performs the action specified in it.
@@ -14,38 +14,50 @@ import { post } from './lib/posts.js';
 // and already in the processed directory.
 
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
-const { agent, request, requestFilePath, richTextFile } = await import('./login-and-validate.js');
+const { agent, requests, requestFilePath, richTextFile } = await import('./login-and-validate.js');
 
-let result;
-switch(request.action) {
-  case 'post': {
-    console.log(`Posting...`, request.richText);
-    result = await post(agent, request);
-    break;
+let rootPostInfo;
+let previousPostInfo;
+for (const request of requests) {
+  let result;
+  switch(request.action) {
+    case 'post': {
+      console.log(`Posting...`, request.richText);
+      result = await post(agent, request);
+      break;
+    };
+    case 'repost': {
+      console.log('Reposting...', request.repostURL);
+      assert(request.repostInfo);  // Extended by validateAndExtendRequestReferences.
+      result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
+      break;
+    }
+    case 'quote-post': {
+      console.log(`Quote posting...`, request.repostURL, request.richText);
+      result = await post(agent, request);
+      break;
+    }
+    case 'reply': {
+      if (request.replyURL === REPLY_IN_THREAD) {
+        request.replyInfo = previousPostInfo;
+        request.rootInfo = rootPostInfo;
+      }
+      console.log(`Replying...`, request.replyURL, request.richText);
+      result = await post(agent, request);
+      break;
+    }
+    default:
+      assert.fail('Unknown action ' + request.action);
+  }
+  console.log('Result', result);
+  // Extend the result to be written to the processed JSON file.
+  request.result = result;
+  previousPostInfo = {
+    uri: result.uri,
+    cid: result.cid,
   };
-  case 'repost': {
-    console.log('Reposting...', request.repostURL);
-    assert(request.repostInfo);  // Extended by validateAndExtendRequestReferences.
-    result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
-    break;
-  }
-  case 'quote-post': {
-    console.log(`Quote posting...`, request.repostURL, request.richText);
-    result = await post(agent, request);
-    break;
-  }
-  case 'reply': {
-    console.log(`Replying...`, request.replyURL, request.richText);
-    result = await post(agent, request);
-    break;
-  }
-  default:
-    assert.fail('Unknown action ' + request.action);
+  rootPostInfo ??= previousPostInfo;
 }
-
-console.log('Result', result);
-// Extend the result to be written to the processed JSON file.
-request.result = result;
 
 const date = new Date().toISOString().slice(0, 10);
 
@@ -70,7 +82,7 @@ do {
 } while (newFile == null);
 
 console.log('Writing..', newFilePath);
-await newFile.writeFile(JSON.stringify(request, null, 2), 'utf8');
+await newFile.writeFile(JSON.stringify(requests, null, 2), 'utf8');
 await newFile.close();
 
 console.log(`Removing..${requestFilePath}`);

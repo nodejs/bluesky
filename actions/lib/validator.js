@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { getPostInfoFromUrl } from './posts.js';
+import { getPostInfoFromUrl, REPLY_IN_THREAD } from './posts.js';
 
 export function validateAccount(request, env) {
   assert(request.account, 'JSON must contain "account" field');
@@ -43,7 +43,7 @@ export function validateRequest(request) {
       assert(
         request.richText.length > 0 && request.richText.length <= 300,
         '"richText" field cannot be longer than 300 chars');
-      assert(typeof request.replyURL === 'string', 'JSON must contain "replyURL" string field');
+      assert(typeof request.replyURL === 'string' || request.replyURL === REPLY_IN_THREAD, 'JSON must contain "replyURL" string field');
       break;
     }
     default:
@@ -57,6 +57,7 @@ export function validateRequest(request) {
  * @param {string} fieldName
  */
 async function validatePostURLInRequest(agent, request, fieldName) {
+  if (request.replyURL === REPLY_IN_THREAD) return request.replyInfo;
   let result;
   try {
     result = await getPostInfoFromUrl(agent, request[fieldName]);

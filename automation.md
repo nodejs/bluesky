@@ -48,6 +48,23 @@ Content automation is done in the form of adding new JSON files to `records/new`
 4. When the PR is merged (either with _Squash and merge_ or with a merge commit, _Rebase and merge_ is not supported), the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
 5. When the process workflow is complete (likely within a minute), you should see a commit from the GitHub bot in the main branch moving the JSON file.
 
+### Threads
+
+To send several messages replying to one another, you can separate each tweet
+using a Markdown [thematic break][] inside the `richText` or `richTextFile`:
+
+```markdown
+Here is the first tweet.
+
+---
+
+Here is the second tweet.
+
+---
+
+Here is the third tweet.
+```
+
 ## Set up automation in a repository
 
 1. [Set up repository secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository) for accounts.
@@ -87,3 +104,5 @@ All files starting with .env are ignored in this repository, you could save the 
 BLUESKY_IDENTIFIER_PIXEL=... # The Bluesky handle
 BLUESKY_APP_PASSWORD_PIXEL=... # The app password
 ```
+
+[thematic break]: https://spec.commonmark.org/0.31.2/#thematic-breaks
