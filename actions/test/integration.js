@@ -37,7 +37,7 @@ async function getURLFromLastResult(lastStdout) {
   lastStdout = lastStdout.toString();
   const postMatch = lastStdout.match(/Processed and moved file: (.*) -> (.*)/);
   assert(postMatch);
-  const processed = loadJSON(postMatch[2]);
+  const processed = loadJSON(postMatch[2])[0];
   assert(processed.result.uri);
   const uriParts = processed.result.uri.split('/');
   const postId = uriParts[uriParts.length - 1];

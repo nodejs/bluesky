@@ -1,6 +1,6 @@
 {
   "action": "reply",
-  "account": "PIXEL",
+  "account": "PRIMARY",
   "richText": "Reply from automation",
   "replyURL": "https://bsky.app/profile/pixel-voyager.bsky.social/post/3lbnik24wgk2i",
   "replyInfo": {

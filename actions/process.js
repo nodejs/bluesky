@@ -28,7 +28,7 @@ for (const request of requests) {
     };
     case 'repost': {
       console.log('Reposting...', request.repostURL);
-      assert(request.repostInfo);  // Extended by validateAndExtendRequestReferences.
+      assert(request.repostInfo);  // Extended by populateRecord.
       result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
       break;
     }
