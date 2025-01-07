@@ -1,0 +1,20 @@
+[
+  {
+    "action": "repost",
+    "account": "NODEJS_ORG",
+    "repostURL": "https://bsky.app/profile/ruyadorno.com/post/3lf6hxkjiwk2d",
+    "repostInfo": {
+      "uri": "at://did:plc:jo6q7w3pntzst527ehp7ff33/app.bsky.feed.post/3lf6hxkjiwk2d",
+      "cid": "bafyreicnecjoftqqh4jvafm65p5bgxzrascglpbmvvr37ur5infc2d7kp4"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.repost/3lf6i5ythxj2y",
+      "cid": "bafyreieg63e7qmmfgtympfphvm2myplvzrtntisit4tysh67hbvbvcbyiu",
+      "commit": {
+        "cid": "bafyreighqtbfjwscldlp24b4xiqbg4rrpow55inwd7m2z3lyw3nhkbigyi",
+        "rev": "3lf6i5ytqqr2y"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
