@@ -46,14 +46,15 @@ jobs:
         id: find-json
         run: |
           # Get the list of added JSON files in the records/new/ directory
-          ADDED_FILES=$(git diff HEAD^ --diff-filter=A --name-only records/new | grep '/.*\.json$' || true)
-          echo "NEW_JSON_FILES=$ADDED_FILES" >> "$GITHUB_ENV"
+          ADDED_FILES=$(git diff -z HEAD^ --diff-filter=A --name-only records/new | jq -crRs 'split("\u0000") | map(select(endswith(".json"))) | @sh' || true)
+          echo "NEW_JSON_FILES=$ADDED_FILES" >> "$GITHUB_OUTPUT"
 
       - name: Process and move files
-        if: env.NEW_JSON_FILES
+        if: steps.find-json.outputs.NEW_JSON_FILES
         env:
           BLUESKY_IDENTIFIER_NODEJS_ORG: nodejs.org
           BLUESKY_APP_PASSWORD_NODEJS_ORG: ${{ secrets.BLUESKY_APP_PASSWORD_NODEJS_ORG }}
+          NEW_JSON_FILES: ${{ steps.find-json.outputs.NEW_JSON_FILES }}
         run: |
           for file in $NEW_JSON_FILES; do
             echo "Processing $file..."
@@ -61,7 +62,7 @@ jobs:
           done
 
       - name: Commit and push changes
-        if: env.NEW_JSON_FILES
+        if: steps.find-json.outputs.NEW_JSON_FILES
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
