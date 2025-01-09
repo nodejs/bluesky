@@ -15,6 +15,10 @@ permissions:
 
 jobs:
   validate-json:
+    # Only run if the PR is from a branch in the main repo, otherwise skip it.
+    # There can be a separate, local validation that runs for PRs from forks.
+    # https://github.com/nodejs/bluesky/issues/10
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
     steps:
@@ -28,12 +32,6 @@ jobs:
       # Must be done before setup-node.
       - name: Enable Corepack
         run: corepack enable
-
-      # We are using `pull_request_target`, meaning untrusted code could access the secrets.
-      # For PRs from forks, we want to rollback to the trusted version of `actions/`. Other
-      # directories do not contain any runnable code.
-      - if: github.event.pull_request.head.repo.full_name != github.repository
-        run: git checkout HEAD^ -- actions/
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
