@@ -8,3 +8,6 @@ Currently, only the following automated Bluesky content is allowed:
 - Posts and Reposts of new features / website content / requests for community help or engagement, etc.
   - Should be proof-read/reviewed by at least 1 member of `@nodejs/tsc` before being reposted.
 - Posts used to verify the automation itself, if considered appropriate.
+- Posts from Node.js ambassadors. As outlined in the
+  [Ambassador program](https://github.com/nodejs/node/blob/main/doc/contributing/advocacy-ambassador-program.md#promoting-content)
+  ambassadors are trusted to request reposts for their posts.
