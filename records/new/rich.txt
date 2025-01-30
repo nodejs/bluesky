@@ -1,1 +1,0 @@
-Node.js v23.7.0 is out. Check the blog post at https://nodejs.org/en/blog/release/v23.7.0 for more information.

@@ -1,0 +1,52 @@
+[
+  {
+    "action": "post",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "Node.js v23.7.0 is out. Check the blog post at https://nodejs.org/en/blog/release/v23.7.0 for more information.",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "Node.js v23.7.0 is out. Check the blog post at https://nodejs.org/en/blog/release/v23.7.0 for more information.",
+      "facets": [
+        {
+          "index": {
+            "byteStart": 47,
+            "byteEnd": 89
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://nodejs.org/en/blog/release/v23.7.0"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2025-01-30T22:01:54.847Z",
+      "embed": {
+        "$type": "app.bsky.embed.external",
+        "external": {
+          "uri": "https://nodejs.org/en/blog/release/v23.7.0",
+          "title": "Node.js — Node v23.7.0 (Current)",
+          "description": "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.",
+          "thumb": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreiakynm6rzueq7qnaqlbve24eifcuugjsz6hznvuowgcbf3kdnytt4"
+            },
+            "mimeType": "image/png",
+            "size": 390230
+          }
+        }
+      }
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3lgyidlc7wc2l",
+      "cid": "bafyreiccdpeuehq6gl4o6ffrllivdlt6cw6sujcvppct5xydgesgf6hqkm",
+      "commit": {
+        "cid": "bafyreiah23dqz3kfpcpvxshcfspzrxehdgtir76c4gvmcbygk2vwpba6la",
+        "rev": "3lgyidlcdtc2l"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
