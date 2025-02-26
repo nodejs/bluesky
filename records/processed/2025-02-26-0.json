@@ -1,0 +1,20 @@
+[
+  {
+    "action": "repost",
+    "account": "NODEJS_ORG",
+    "repostURL": "https://bsky.app/profile/targos.dev/post/3lj3tqqutvk2v",
+    "repostInfo": {
+      "uri": "at://did:plc:vamwsptmnzmcz3ji3uzydhjp/app.bsky.feed.post/3lj3tqqutvk2v",
+      "cid": "bafyreie5dszqpmpuizocbklrf6kpmwh27u4y5b3qeq5kor5iwwiqqafr2i"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.repost/3lj3u2m3fjj2m",
+      "cid": "bafyreihomyuzleufkdbebkcvjwmtux4qwsxktol77zbrbrvm77vaz2qxqi",
+      "commit": {
+        "cid": "bafyreihuzf3m6x7abxe42ygqxg3kauihtyqoaqk3e7kra56m42xqejs33a",
+        "rev": "3lj3u2m3pbz2m"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
