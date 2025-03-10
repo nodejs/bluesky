@@ -1,5 +1,5 @@
 {
   "action": "post",
   "account": "NODEJS_ORG",
-  "richText": "Trying to publish a package and there are just. so. many. options? The good news is it's probably not as complicated as it seems. We gotchu started.\n\nCheck out the new https://nodejs.org/en/learn/modules/publishing-a-package"
+  "richText": "Trying to publish a package and there are just. so. many. options? The good news is it's probably not as complicated as it seems.\n\nWe've started a guide that covers common use-cases (and some exotic ones); it doesn't cover everything yet additions welcome!\n\nhttps://nodejs.org/en/learn/modules/publishing-a-package"
 }
