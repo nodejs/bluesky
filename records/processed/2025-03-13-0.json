@@ -1,0 +1,20 @@
+[
+  {
+    "action": "repost",
+    "account": "NODEJS_ORG",
+    "repostURL": "https://bsky.app/profile/satanacchio.bsky.social/post/3lkb7pm6ch22r",
+    "repostInfo": {
+      "uri": "at://did:plc:i7txxyxpxv3rkqhhq3l57sd6/app.bsky.feed.post/3lkb7pm6ch22r",
+      "cid": "bafyreiembf4l5exnz6zk4ujbgipuvr4d6ijs3clkkrhsyiyxsxiouxulkq"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.repost/3lkba4fpn3z27",
+      "cid": "bafyreihmo7t4feemcrakplxynxt5mn64plnbubhxsk7s6zuwkh4yuybu4u",
+      "commit": {
+        "cid": "bafyreifynhzourjtz4zwqw7q44dfglvflmyngtyslgw2pwo32tosmln7k4",
+        "rev": "3lkba4fpwuj27"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
