@@ -1,1 +1,2 @@
-We had a lot of productive discussions at the Node.js collaboration summit in Paris! Huge thanks to our host @datadoghq.com!\nFind the notes in https://github.com/openjs-foundation/summit/issues/433 - we'll publish the recording and a trip report soon!
+We had a lot of productive discussions at the Node.js collaboration summit in Paris! Huge thanks to our host @datadoghq.com!
+Find the notes in https://github.com/openjs-foundation/summit/issues/433 - we'll publish the recording and a trip report soon!
