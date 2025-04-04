@@ -1,0 +1,65 @@
+[
+  {
+    "action": "post",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "We had a lot of productive discussions at the Node.js collaboration summit in Paris. Huge thanks to our host @datadoghq.com!\nFind the notes in https://github.com/openjs-foundation/summit/issues/433 - we'll publish the recordings and a trip report soon!\n",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "We had a lot of productive discussions at the Node.js collaboration summit in Paris. Huge thanks to our host @datadoghq.com!\nFind the notes in https://github.com/openjs-foundation/summit/issues/433 - we'll publish the recordings and a trip report soon!\n",
+      "facets": [
+        {
+          "$type": "app.bsky.richtext.facet",
+          "index": {
+            "byteStart": 109,
+            "byteEnd": 123
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#mention",
+              "did": "did:plc:e2hpjguwsfuuebriutkquzbe"
+            }
+          ]
+        },
+        {
+          "index": {
+            "byteStart": 143,
+            "byteEnd": 197
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://github.com/openjs-foundation/summit/issues/433"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2025-04-04T10:54:40.413Z",
+      "embed": {
+        "$type": "app.bsky.embed.external",
+        "external": {
+          "uri": "https://github.com/openjs-foundation/summit/issues/433",
+          "title": "Node.js Collaboration Summit 2025 / Paris · Issue #433 · openjs-foundation/summit",
+          "description": "Date: April 1-2, to be close to when dotJS happens. During the night of 1st we'll have an additional meetup to connect with the local developer community. Venue: Datadog's office (21 Rue de Château...",
+          "thumb": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreia6gwbkj4j3jvbcptgis5ow3rxmso4y7itcoptxqxi2lhzvw5hvvy"
+            },
+            "mimeType": "image/png",
+            "size": 70813
+          }
+        }
+      }
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3llyavghfhz2q",
+      "cid": "bafyreiaa3reoh4f4untkc2447q5ak6g2hjopjfnjccbeht5q4ueb44euxy",
+      "commit": {
+        "cid": "bafyreihl7bhsjojau7yxcexketijmhdtwvglshkhj4lowjlchwefemybxu",
+        "rev": "3llyavghnbz2q"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
