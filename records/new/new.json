@@ -1,0 +1,5 @@
+{
+  "action": "post",
+  "account": "NODEJS_ORG",
+  "richTextFile": "./rich.txt"
+}
