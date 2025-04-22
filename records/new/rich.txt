@@ -1,0 +1,7 @@
+Node.js v20.19.1 is out. Check the blog post at https://nodejs.org/en/blog/release/v20.19.1/ 🎉
+
+TL;DR:
+- 🔄 Updated Undici to v6.21.2
+- 🧩 Updated c-ares to v1.34.5
+- 🧠 Restored DNS query cache TTL
+- 🛠️ Various doc, test, and tooling improvements
