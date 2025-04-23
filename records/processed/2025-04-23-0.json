@@ -1,0 +1,20 @@
+[
+  {
+    "action": "repost",
+    "account": "NODEJS_ORG",
+    "repostURL": "https://bsky.app/profile/ulisesgascon.com/post/3lnhq7awk4c2j",
+    "repostInfo": {
+      "uri": "at://did:plc:rgn3ralkvtzgv5a6f74ee7ba/app.bsky.feed.post/3lnhq7awk4c2j",
+      "cid": "bafyreictjamfgdqsrbvo3mqttfg6jranm37o6scrjy6zvjetfb3rgnqujq"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.repost/3lni5xhaxn626",
+      "cid": "bafyreif3te3jpfwuhgunr2mlyt76lyt2ii5mwars5pr3zgptt6i2q3wbmq",
+      "commit": {
+        "cid": "bafyreiaeamm5howrbgtxy2cecvzbzwman544clny2ghmknlw7yxn4hakse",
+        "rev": "3lni5xhbbfo26"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
