@@ -1,5 +1,0 @@
-{
-  "action": "post",
-  "account": "NODEJS_ORG",
-  "richText": "We've started a guide that covers common package publishing practices (and some exotic ones); it doesn't cover everything yet - additions welcome!\n\nhttps://nodejs.org/en/learn/modules/publishing-a-package"
-}
