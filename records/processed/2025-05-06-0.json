@@ -1,0 +1,138 @@
+[
+  {
+    "action": "post",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "The future of OSUOSL is in jeopardy - as a nonprofit, they provide free infrastructure for many OSS projects, nurturing smaller projects and filling out support matrices for bigger projects like Node.js. Please help them keep the lights on for the OSS world! https://osuosl.org/blog/osl-future/",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "The future of OSUOSL is in jeopardy - as a nonprofit, they provide free infrastructure for many OSS projects, nurturing smaller projects and filling out support matrices for bigger projects like Node.js. Please help them keep the lights on for the OSS world! https://osuosl.org/blog/osl-future/",
+      "facets": [
+        {
+          "index": {
+            "byteStart": 259,
+            "byteEnd": 294
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://osuosl.org/blog/osl-future/"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2025-05-06T09:36:56.154Z",
+      "embed": {
+        "$type": "app.bsky.embed.external",
+        "external": {
+          "uri": "https://osuosl.org/blog/osl-future/",
+          "title": "Future of OSL in Jeopardy | OSU Open Source Lab",
+          "description": "A nonprofit organization working for the advancement of open source technologies.",
+          "thumb": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreibbi3p6rnvgd5egmkuoyr4yfks4mdypsm2hcnn2nvasxs5t5ivefm"
+            },
+            "mimeType": "image/jpeg",
+            "size": 155476
+          }
+        }
+      }
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3loilhttnez23",
+      "cid": "bafyreifs4ppmpk7fotfric5f5ewlaxfyz2bcozh4npyzluucgnfshbqziy",
+      "commit": {
+        "cid": "bafyreiepbrm2bmzoyhjbbcw6exxvz46nyt3og43w7tgu4mstrp5elernwy",
+        "rev": "3loilhttw6b23"
+      },
+      "validationStatus": "valid"
+    }
+  },
+  {
+    "action": "reply",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "-",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "-",
+      "createdAt": "2025-05-06T09:36:56.154Z"
+    },
+    "replyInfo": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3loilhttnez23",
+      "cid": "bafyreifs4ppmpk7fotfric5f5ewlaxfyz2bcozh4npyzluucgnfshbqziy"
+    },
+    "rootInfo": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3loilhttnez23",
+      "cid": "bafyreifs4ppmpk7fotfric5f5ewlaxfyz2bcozh4npyzluucgnfshbqziy"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3loilhupqww2d",
+      "cid": "bafyreiea233u74ykuzevcr2rifewsd3rzebm5luh4a4dk2e7denmolnmua",
+      "commit": {
+        "cid": "bafyreih2oel7pddsjctw5qjiss67vl7hzn4gnwqvqs4ftkcae5aub6peji",
+        "rev": "3loilhupzq62d"
+      },
+      "validationStatus": "valid"
+    }
+  },
+  {
+    "action": "reply",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "Node.js currently relies on OSUOSL to test and/or release binaries for Linux arm64, Linux ppc64le, and AIX. To learn more about why they are important for other OSS projects like us and how you can donate, check out https://osuosl.org/donate/\n",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "Node.js currently relies on OSUOSL to test and/or release binaries for Linux arm64, Linux ppc64le, and AIX. To learn more about why they are important for other OSS projects like us and how you can donate, check out https://osuosl.org/donate/\n",
+      "facets": [
+        {
+          "index": {
+            "byteStart": 216,
+            "byteEnd": 242
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://osuosl.org/donate/"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2025-05-06T09:36:56.156Z",
+      "embed": {
+        "$type": "app.bsky.embed.external",
+        "external": {
+          "uri": "https://osuosl.org/donate/",
+          "title": "Donate | OSU Open Source Lab",
+          "description": "A nonprofit organization working for the advancement of open source technologies.",
+          "thumb": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreibbi3p6rnvgd5egmkuoyr4yfks4mdypsm2hcnn2nvasxs5t5ivefm"
+            },
+            "mimeType": "image/jpeg",
+            "size": 155476
+          }
+        }
+      }
+    },
+    "replyInfo": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3loilhupqww2d",
+      "cid": "bafyreiea233u74ykuzevcr2rifewsd3rzebm5luh4a4dk2e7denmolnmua"
+    },
+    "rootInfo": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3loilhttnez23",
+      "cid": "bafyreifs4ppmpk7fotfric5f5ewlaxfyz2bcozh4npyzluucgnfshbqziy"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3loilhvdw7b2j",
+      "cid": "bafyreigxtfx6njrvsxsbcjedi2l232mlhfbizazranx2rkksph5gri6gi4",
+      "commit": {
+        "cid": "bafyreihacc3wladkazjmxrf5okwpb3wurhbqjifa3xpknjhgin4uqpwclq",
+        "rev": "3loilhve7xr2j"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
