@@ -1,0 +1,5 @@
+The future of OSUOSL is in jeopardy - as a nonprofit, they provide free infrastructure for many OSS projects, nurturing smaller projects and filling out support matrices for bigger projects like Node.js. Please help them keep the lights on for the OSS world! https://osuosl.org/blog/osl-future/
+
+---
+
+Node.js currently relies on OSUOSL to test and/or release binaries for Linux arm64, Linux ppc64le, and AIX. To learn more about why they are important for other OSS projects like us and how you can donate, check out https://osuosl.org/donate/
