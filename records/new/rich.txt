@@ -1,4 +1,4 @@
-The future of OSUOSL is in jeopardy - as a nonprofit, they provide build and test infra for many OSS projects for free, nurturing smaller projects and filling out support matrices for bigger projects like Node.js. Please help them keep the lights on for the OSS world! https://osuosl.org/blog/osl-future/
+The future of OSUOSL is in jeopardy - as a nonprofit, they provide free infrastructure for many OSS projects, nurturing smaller projects and filling out support matrices for bigger projects like Node.js. Please help them keep the lights on for the OSS world! https://osuosl.org/blog/osl-future/
 
 ---
 
