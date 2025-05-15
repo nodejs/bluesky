@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "yarn"
+          cache-dependency-path: actions/yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./actions
+
+      - name: Create .env.bsky
+        run: |
+          echo "BLUESKY_IDENTIFIER_NODEJS_ORG=${{ secrets.BLUESKY_IDENTIFIER_NODEJS_ORG }}" >> actions/.env.bsky
+          echo "BLUESKY_APP_PASSWORD_NODEJS_ORG=${{ secrets.BLUESKY_APP_PASSWORD_NODEJS_ORG }}" >> actions/.env.bsky
+
+      - name: Run integration test
+        run: node --env-file actions/.env.bsky actions/test/integration.js
+        working-directory: ./actions
