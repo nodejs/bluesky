@@ -1,5 +1,5 @@
 {
   "action": "post",
   "account": "NODEJS_ORG",
-  "richText": "We've published a codemod to automatically migrate codebases using legacy tsc imports to standard ones that run in node!\n\nhttps://codemod.com/registry/nodejs-correct-ts-specifiers"
+  "richText": "We've published a codemod to automatically migrate codebases using legacy tsc imports to standard ones that run in node!\n\nimport Foo from './foo' → import type Foo from './foo/index.ts'\n\nhttps://codemod.com/registry/nodejs-correct-ts-specifiers"
 }
