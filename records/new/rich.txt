@@ -4,4 +4,4 @@ https://nodejs.org/en/blog/events/collab-summit-2025-paris
 
 Recordings:
 
-https://www.youtube.com/watch?v=uY8RqY8OQ2Y&list=PLfMzBWSH11xZi7m2GPsgyi84BFP1bPLCI&index=1
+https://youtube.com/playlist?list=PLfMzBWSH11xZi7m2GPsgyi84BFP1bPLCI
