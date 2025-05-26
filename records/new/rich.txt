@@ -1,1 +1,7 @@
-Trip report of the Paris 2025 collaboration summit https://nodejs.org/en/blog/events/collab-summit-2025-paris \n\n Recordings https://www.youtube.com/watch?v=uY8RqY8OQ2Y&list=PLfMzBWSH11xZi7m2GPsgyi84BFP1bPLCI&index=1
+Trip report of our Paris 2025 collaboration summit ✨
+
+https://nodejs.org/en/blog/events/collab-summit-2025-paris
+
+Recordings:
+
+https://www.youtube.com/watch?v=uY8RqY8OQ2Y&list=PLfMzBWSH11xZi7m2GPsgyi84BFP1bPLCI&index=1
