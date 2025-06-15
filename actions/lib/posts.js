@@ -193,12 +193,8 @@ export async function populateRecord(agent, request, shouldUploadImage = false) 
         $type: 'app.bsky.embed.record',
         record: request.repostInfo
       };
-    } else if (request.replyInfo) {
-      record.reply = {
-        root: request.rootInfo || request.replyInfo,
-        parent: request.replyInfo,
-      };
     }
+    updateReplyRecord(request, record);
 
     // If there is already another embed, don't generate the card embed.
     if (!record.embed) {
@@ -236,6 +232,52 @@ export async function populateRecord(agent, request, shouldUploadImage = false) 
   console.dir(request.record, { depth: 3 });
 
   return request;
+}
+
+function updateReplyRecord(request, record) {
+  if (request.replyInfo) {
+    record.reply = {
+      root: request.rootInfo || request.replyInfo,
+      parent: request.replyInfo,
+    };
+  }
+  return request;
+}
+
+export function maybeUpdateReplyInThread(request, previousPostInfo, rootPostInfo) {
+  if (request.replyURL === REPLY_IN_THREAD) {
+    request.replyInfo = previousPostInfo;
+    request.rootInfo = rootPostInfo;
+    updateReplyRecord(request, request.record);
+    console.log('Updated reply in thread', request);
+  }
+}
+
+// If the request contains rich text with thematic breaks, it will split the request into multiple
+// requests.
+export function maybeSplitRequests(request) {
+  if (request.action === 'repost') {  // reposts are always single posts.
+    return [request];
+  }
+  if (!request.richText) {
+    return [request];
+  }
+  const thread = request.richText.split(/^\s*(?:[-*_]\s*){2,}\s*$/m)
+    .map((text) => text.trim())
+    .filter((text) => text.length > 0);
+
+  if (thread.length === 1) {
+    return [request];
+  }
+
+  return thread.map((richText, i) => ({
+      ...request,
+      ...(i === 0 ? undefined : {
+        action: 'reply',  // Posts other than the first one are replies.
+        replyURL: REPLY_IN_THREAD,
+      }),
+      richText,
+  }));
 }
 
 /**
