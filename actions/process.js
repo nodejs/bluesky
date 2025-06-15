@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import assert from 'node:assert';
 import process from 'node:process';
 import path from 'node:path';
-import { post, REPLY_IN_THREAD } from './lib/posts.js';
+import { post, maybeUpdateReplyInThread } from './lib/posts.js';
 
 // This script takes a path to a JSON with the pattern $base_path/new/$any_name.json,
 // where $any_name can be anything, and then performs the action specified in it.
@@ -38,10 +38,7 @@ for (const request of requests) {
       break;
     }
     case 'reply': {
-      if (request.replyURL === REPLY_IN_THREAD) {
-        request.replyInfo = previousPostInfo;
-        request.rootInfo = rootPostInfo;
-      }
+      maybeUpdateReplyInThread(request, previousPostInfo, rootPostInfo);
       console.log(`Replying...`, request.replyURL, request.richText);
       result = await post(agent, request);
       break;

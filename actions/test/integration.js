@@ -98,4 +98,17 @@ console.log(repostRequest);
 checkProcess(process.execPath, [ processPath, repostPath ]);
 // repost alone does not generate new URLs.
 
+// Test threading.
+const threadPath = path.join(newDir, 'thread.json');
+const threadExample = path.join(examplesDir, 'thread.json.example');
+const threadRequest = loadJSON(threadExample);
+fs.cpSync(threadExample, threadPath);
+fs.cpSync(path.join(examplesDir, 'thread.txt'), path.join(newDir, 'thread.txt'));
+
+console.log('--- Test threading ---');
+console.log(threadRequest);
+const threadChild = checkProcess(process.execPath, [ processPath, threadPath ]);
+const threadURL = await getURLFromLastResult(threadChild.stdout);
+console.log(`thread URL`, threadURL);
+
 fs.rmSync(tmpdir, { recursive: true, force: true });
