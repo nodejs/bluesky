@@ -1,1 +1,5 @@
-It's been 7 months since our Bluesky account went into operation! 🦋 Dear followers, what do you think about the existing content on this account, and what else would you like to see? Come join us in our follower survey!  https://github.com/nodejs/bluesky/discussions/140
+It's been 7 months since our Bluesky account went into operation! 🦋
+
+Dear followers, what do you think about the existing content on this account, and what else would you like to see? Come join us in our follower survey!
+
+https://github.com/nodejs/bluesky/discussions/140
