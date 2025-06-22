@@ -10,7 +10,7 @@ Poll: Release announcements: https://github.com/nodejs/bluesky/discussions/133
 
 ---
 
-Poll: Official blog posts and tutorials: https://github.com/nodejs/bluesky/discussions/134
+Poll: Official blog posts and learning material: https://github.com/nodejs/bluesky/discussions/134
 
 ---
 
