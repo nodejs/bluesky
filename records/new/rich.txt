@@ -2,32 +2,32 @@ It's been 7 months since our Bluesky account went into operation! 🦋
 
 Dear followers, what do you think about the existing content on this account, and what else would you like to see? Come join us in our follower survey!
 
-https://github.com/nodejs/bluesky/discussions/140
+Discussion thread: https://github.com/nodejs/bluesky/discussions/140
 
 ---
 
-Poll about Release announcements: https://github.com/nodejs/bluesky/discussions/133
+Poll: Release announcements: https://github.com/nodejs/bluesky/discussions/133
 
 ---
 
-Poll about Official blog posts and tutorials: https://github.com/nodejs/bluesky/discussions/134
+Poll: Official blog posts and tutorials: https://github.com/nodejs/bluesky/discussions/134
 
 ---
 
-Poll about Technical content from project contributors: https://github.com/nodejs/bluesky/discussions/135
+Poll: Technical content from project contributors: https://github.com/nodejs/bluesky/discussions/135
 
 ---
 
-Poll about Team/Working Group meeting recordings: https://github.com/nodejs/bluesky/discussions/136
+Poll: Team/Working Group meeting recordings: https://github.com/nodejs/bluesky/discussions/136
 
 ---
 
-Poll about Event updates and reports: https://github.com/nodejs/bluesky/discussions/137
+Poll: Event updates and reports: https://github.com/nodejs/bluesky/discussions/137
 
 ---
 
-Poll about Request for corporate support from contributors: https://github.com/nodejs/bluesky/discussions/138
+Poll: Request for corporate support from contributors: https://github.com/nodejs/bluesky/discussions/138
 
 ---
 
-Poll about Request for community participation: https://github.com/nodejs/bluesky/discussions/139
+Poll: Request for community participation: https://github.com/nodejs/bluesky/discussions/139
