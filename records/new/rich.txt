@@ -31,8 +31,3 @@ Poll about Request for corporate support from contributors: https://github.com/n
 ---
 
 Poll about Request for community participation: https://github.com/nodejs/bluesky/discussions/139
-
-
-
-
-
