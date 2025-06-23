@@ -1,5 +1,5 @@
 {
-  "action": "post",
+  "action": "repost",
   "account": "NODEJS_ORG",
-  "richTextFile": "./rich.txt"
+  "repostURL": "https://bsky.app/profile/marcoippolito.dev/post/3lsbdrpxa7c23"
 }
