@@ -1,0 +1,20 @@
+[
+  {
+    "action": "repost",
+    "account": "NODEJS_ORG",
+    "repostURL": "https://bsky.app/profile/marcoippolito.dev/post/3lsbdrpxa7c23",
+    "repostInfo": {
+      "uri": "at://did:plc:i7txxyxpxv3rkqhhq3l57sd6/app.bsky.feed.post/3lsbdrpxa7c23",
+      "cid": "bafyreib7siojoksc74kumxejjf74sztpogphvbbwxingpmfhlyb7sxx6ma"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.repost/3lsbuojiioz2d",
+      "cid": "bafyreifemkna3cigfdjllqjhtdgxc7tanaclgvlcntoowoxqlb3friyosm",
+      "commit": {
+        "cid": "bafyreif7issycayqjbtuampszicxsqubj3gkzuru67efctifmmzexmb56i",
+        "rev": "3lsbuojivfb2d"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
