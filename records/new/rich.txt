@@ -1,0 +1,5 @@
+Node.js v24.3.0 is out! 💚 
+
+This version includes support for object property mocking, removes experimental warning from type stripping, updates dependencies, and many more!
+
+See what's new: https://nodejs.org/en/blog/release/v24.3.0
