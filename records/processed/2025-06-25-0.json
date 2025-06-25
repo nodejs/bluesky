@@ -1,0 +1,52 @@
+[
+  {
+    "action": "post",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "Node.js v24.3.0 is out! 💚 \n\nThis version includes support for object property mocking, removes experimental warning from type stripping, updates dependencies, and many more!\n\nSee what's new: https://nodejs.org/en/blog/release/v24.3.0\n",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "Node.js v24.3.0 is out! 💚 \n\nThis version includes support for object property mocking, removes experimental warning from type stripping, updates dependencies, and many more!\n\nSee what's new: https://nodejs.org/en/blog/release/v24.3.0\n",
+      "facets": [
+        {
+          "index": {
+            "byteStart": 194,
+            "byteEnd": 236
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://nodejs.org/en/blog/release/v24.3.0"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2025-06-25T19:23:47.232Z",
+      "embed": {
+        "$type": "app.bsky.embed.external",
+        "external": {
+          "uri": "https://nodejs.org/en/blog/release/v24.3.0",
+          "title": "Node.js — Node v24.3.0 (Current)",
+          "description": "Node.js® is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts.",
+          "thumb": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreiboauij4eg7dinqmyrabtje6mep2sxzi3xpwpoik33r4ctrfbdtre"
+            },
+            "mimeType": "image/png",
+            "size": 390144
+          }
+        }
+      }
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3lshdla5lof2i",
+      "cid": "bafyreiglqjee4t2ulkizif6sh7nwdz6uzyn2dsilwyjx5khvuxj32tmmpm",
+      "commit": {
+        "cid": "bafyreifgkmp2p2slxhs2i7fc37fktkb42e7t7pvfqwjsretwxgj7w3wjw4",
+        "rev": "3lshdla5yen2i"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
