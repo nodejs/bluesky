@@ -5,4 +5,4 @@ Node.js v24.10.0 is out.
 * Upgraded OpenSSL to 3.5.4 and npm to 11.6.1
 * Various src and benchmark optimizations
 
-Changelog and downloads: https://github.com/nodejs/node/releases/tag/v24.10.0
+https://github.com/nodejs/node/releases/tag/v24.10.0
