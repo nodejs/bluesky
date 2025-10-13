@@ -1,0 +1,1 @@
+Node.js v24.10.0 is out.  * Per-stream inspectOptions support in console * Removal of util.getCallSite (in favour of util.getCallSites) * Upgraded OpenSSL to 3.5.4 and npm to 11.6.1 * Various src and benchmark optimizations  Changelog and downloads:
