@@ -1,0 +1,112 @@
+[
+  {
+    "action": "post",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "The Node.js package configuration guide is now live! 🎉\n\nWhether you're creating your first package or migrating to ESM, this guide walks you through it with examples.\n\nhttps://nodejs.github.io/package-examples",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "The Node.js package configuration guide is now live! 🎉\n\nWhether you're creating your first package or migrating to ESM, this guide walks you through it with examples.\n\nhttps://nodejs.github.io/package-examples",
+      "facets": [
+        {
+          "index": {
+            "byteStart": 171,
+            "byteEnd": 212
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://nodejs.github.io/package-examples"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-01-08T21:02:55.011Z",
+      "embed": {
+        "$type": "app.bsky.embed.external",
+        "external": {
+          "uri": "https://nodejs.github.io/package-examples",
+          "title": "",
+          "description": ""
+        }
+      }
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3mbwuxtwjwv23",
+      "cid": "bafyreidtqkm3nbddh3rrcqwclg2xkgx3bdxnnnqdel2fnpbekxtnsl2zia",
+      "commit": {
+        "cid": "bafyreifzty7wbuvva55ifrla3faaxw5ydhas7dpod3o6jjbotdgmgb7o2m",
+        "rev": "3mbwuxtwntv23"
+      },
+      "validationStatus": "valid"
+    }
+  },
+  {
+    "action": "reply",
+    "account": "NODEJS_ORG",
+    "richTextFile": "./rich.txt",
+    "richText": "The guide is still in progress, but currently covers JavaScript packages without a build step.\n\nMore to come. Feedback, issues, and PRs are welcome!\n\nhttps://github.com/nodejs/package-examples",
+    "record": {
+      "$type": "app.bsky.feed.post",
+      "text": "The guide is still in progress, but currently covers JavaScript packages without a build step.\n\nMore to come. Feedback, issues, and PRs are welcome!\n\nhttps://github.com/nodejs/package-examples",
+      "facets": [
+        {
+          "index": {
+            "byteStart": 150,
+            "byteEnd": 192
+          },
+          "features": [
+            {
+              "$type": "app.bsky.richtext.facet#link",
+              "uri": "https://github.com/nodejs/package-examples"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-01-08T21:02:55.014Z",
+      "embed": {
+        "$type": "app.bsky.embed.external",
+        "external": {
+          "uri": "https://github.com/nodejs/package-examples",
+          "title": "GitHub - nodejs/package-examples: Repository documenting package shipping patterns",
+          "description": "Repository documenting package shipping patterns . Contribute to nodejs/package-examples development by creating an account on GitHub.",
+          "thumb": {
+            "$type": "blob",
+            "ref": {
+              "$link": "bafkreiaesno6h3rttimza523zzre3iv2hx4eba22vxodhmfezpk67vnh5e"
+            },
+            "mimeType": "image/png",
+            "size": 52773
+          }
+        }
+      },
+      "reply": {
+        "root": {
+          "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3mbwuxtwjwv23",
+          "cid": "bafyreidtqkm3nbddh3rrcqwclg2xkgx3bdxnnnqdel2fnpbekxtnsl2zia"
+        },
+        "parent": {
+          "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3mbwuxtwjwv23",
+          "cid": "bafyreidtqkm3nbddh3rrcqwclg2xkgx3bdxnnnqdel2fnpbekxtnsl2zia"
+        }
+      }
+    },
+    "replyInfo": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3mbwuxtwjwv23",
+      "cid": "bafyreidtqkm3nbddh3rrcqwclg2xkgx3bdxnnnqdel2fnpbekxtnsl2zia"
+    },
+    "rootInfo": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3mbwuxtwjwv23",
+      "cid": "bafyreidtqkm3nbddh3rrcqwclg2xkgx3bdxnnnqdel2fnpbekxtnsl2zia"
+    },
+    "result": {
+      "uri": "at://did:plc:abbt45q3u3bttqfs7nepehhu/app.bsky.feed.post/3mbwuxv35p22y",
+      "cid": "bafyreifxo3q3lsqcbtp2fwepsm6uvdx3tyvb35hyi632lineqiz5xhdnmu",
+      "commit": {
+        "cid": "bafyreierf765oyykyigeem7jclibaxj6vyeeaqmnjucve3oj2e2sg5xddq",
+        "rev": "3mbwuxv3gic2y"
+      },
+      "validationStatus": "valid"
+    }
+  }
+]
