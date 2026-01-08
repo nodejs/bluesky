@@ -1,6 +1,6 @@
 The Node.js package configuration guide is now live! 🎉
 
-Whether you're creating your first npm package or migrating to ESM, this guide walks you through it with examples.
+Whether you're creating your first package or migrating to ESM, this guide walks you through it with examples.
 
 https://nodejs.github.io/package-examples
 
