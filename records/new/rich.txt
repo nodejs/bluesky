@@ -6,6 +6,8 @@ https://nodejs.github.io/package-examples
 
 ---
 
-The guide is still in its early stages. Feedback, issues, and PRs are welcome!
+The guide is still early - currently covering the basics: JavaScript packages without a build step. More to come!
+
+Feedback, issues, and PRs are welcome!
 
 https://github.com/nodejs/package-examples
