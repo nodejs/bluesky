@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import assert from 'node:assert';
 import process from 'node:process';
 import path from 'node:path';
-import { post, maybeUpdateReplyInThread } from './lib/posts.js';
+import { post, maybeUpdateReplyInThread, getPostURLFromURI } from './lib/posts.js';
 
 // This script takes a path to a JSON with the pattern $base_path/new/$any_name.json,
 // where $any_name can be anything, and then performs the action specified in it.
@@ -12,6 +12,34 @@ import { post, maybeUpdateReplyInThread } from './lib/posts.js';
 // $base_path/processed/$YYYY-$MM-$DD-$ID.json, where $ID is an incremental number
 // starting from 0 based on the number of existing JSONs processed on the same date
 // and already in the processed directory.
+
+/**
+ * Resolve a browsable bsky.app URL for the performed action.
+ * Reposts create `app.bsky.feed.repost` records (not /post/ URLs), so link the
+ * original post instead.
+ * @param {import('@atproto/api').AtpAgent} agent
+ * @param {{ action: string, repostURL?: string }} request
+ * @param {{ uri: string }} result
+ */
+async function getPublicPostURL(agent, request, result) {
+  if (request.action === 'repost') {
+    return request.repostURL;
+  }
+  return getPostURLFromURI(agent, result.uri);
+}
+
+/**
+ * When POST_URLS_FILE is set (GitHub Actions), append URLs so the workflow can
+ * comment them on the merged PR.
+ * @param {string} postURL
+ */
+function appendPostURLForPRComment(postURL) {
+  const urlsFile = process.env.POST_URLS_FILE;
+  if (!urlsFile) {
+    return;
+  }
+  fs.appendFileSync(urlsFile, `${postURL}\n`);
+}
 
 assert(process.argv[2], `Usage: node process.js $base_path/new/$any_name.json`);
 const { agent, requests, requestFilePath, richTextFile } = await import('./login-and-validate.js');
@@ -47,6 +75,10 @@ for (const request of requests) {
       assert.fail('Unknown action ' + request.action);
   }
   console.log('Result', result);
+  const postURL = await getPublicPostURL(agent, request, result);
+  console.log('Post URL', postURL);
+  result.postURL = postURL;
+  appendPostURLForPRComment(postURL);
   // Extend the result to be written to the processed JSON file.
   request.result = result;
   previousPostInfo = {
