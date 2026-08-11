@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: process-json-${{ github.ref }}
@@ -54,11 +55,33 @@ jobs:
         env:
           BLUESKY_IDENTIFIER_NODEJS_ORG: nodejs.org
           BLUESKY_APP_PASSWORD_NODEJS_ORG: ${{ secrets.BLUESKY_APP_PASSWORD_NODEJS_ORG }}
+          POST_URLS_FILE: ${{ runner.temp }}/bluesky-post-urls.txt
         run: |
+          : > "$POST_URLS_FILE"
           for file in ${{ steps.find-json.outputs.NEW_JSON_FILES }}; do
             echo "Processing $file..."
             node actions/process.js "$file"
           done
+
+      # Comment browsable bsky.app links on the merged PR (nodejs/bluesky#9).
+      - name: Comment post links on the PR
+        if: steps.find-json.outputs.NEW_JSON_FILES
+        env:
+          GH_TOKEN: ${{ github.token }}
+          POST_URLS_FILE: ${{ runner.temp }}/bluesky-post-urls.txt
+        run: |
+          if [ ! -s "$POST_URLS_FILE" ]; then
+            echo "No post URLs to comment"
+            exit 0
+          fi
+          {
+            echo "Posted to Bluesky:"
+            echo
+            while IFS= read -r url; do
+              [ -n "$url" ] && echo "- $url"
+            done < "$POST_URLS_FILE"
+          } > "${{ runner.temp }}/pr-comment.md"
+          gh pr comment "${{ github.event.pull_request.number }}" --body-file "${{ runner.temp }}/pr-comment.md"
 
       - name: Commit and push changes
         if: steps.find-json.outputs.NEW_JSON_FILES
