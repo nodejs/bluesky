@@ -1,5 +1,5 @@
-import AtpAgent, { AppBskyFeedPost, BlobRef, RichText } from "@atproto/api";
 import assert from 'node:assert';
+import AtpAgent, { AppBskyFeedPost, BlobRef, RichText } from '@atproto/api';
 import * as cheerio from 'cheerio';
 
 export const REPLY_IN_THREAD = Symbol('Reply in thread');
@@ -11,7 +11,7 @@ export const REPLY_IN_THREAD = Symbol('Reply in thread');
 const kURLPattern = /https:\/\/bsky\.app\/profile\/(.+)\/post\/(.+)/;
 
 /**
- * @param {string} url 
+ * @param {string} url
  */
 export function validatePostURL(url) {
   const match = url.match(kURLPattern);
@@ -20,12 +20,12 @@ export function validatePostURL(url) {
   return {
     handle: match[1],
     postId: match[2],
-    isDid: match[1].startsWith('did:')
+    isDid: match[1].startsWith('did:'),
   };
 }
 
 /**
- * @param {AtpAgent} agent 
+ * @param {AtpAgent} agent
  * @param {string} postUrl
  */
 export async function getPostInfoFromUrl(agent, postUrl) {
@@ -46,14 +46,14 @@ export async function getPostInfoFromUrl(agent, postUrl) {
 }
 
 // URI format: at://${did}/app.bsky.feed.post/${postId}
-const kURIPattern = /at:\/\/(.*)+\/app\.bsky\.feed\.post\/(.*)+/
+const kURIPattern = /at:\/\/(.*)+\/app\.bsky\.feed\.post\/(.*)+/;
 export function validatePostURI(uri) {
   const match = uri.match(kURIPattern);
   assert(match, `Post URI ${uri} does not match the expected pattern`);
 
   return {
     did: match[1],
-    postId: match[2]
+    postId: match[2],
   };
 }
 
@@ -77,7 +77,7 @@ export async function getPostURLFromURI(agent, uri) {
  */
 async function uploadImage(agent, imgData) {
   const res = await agent.uploadBlob(imgData, {
-    encoding: 'image/jpeg'
+    encoding: 'image/jpeg',
   });
   return res.data.blob;
 }
@@ -179,19 +179,19 @@ export async function populateRecord(agent, request, shouldUploadImage = false) 
     const rt = new RichText({ text: request.richText });
 
     await rt.detectFacets(agent); // automatically detects mentions and links
-  
+
     const record = {
       $type: 'app.bsky.feed.post',
       text: rt.text,
       facets: rt.facets,
       createdAt: new Date().toISOString(),
     };
-  
+
     // https://docs.bsky.app/docs/tutorials/creating-a-post#quote-posts
     if (request.repostInfo) {
       record.embed = {
         $type: 'app.bsky.embed.record',
-        record: request.repostInfo
+        record: request.repostInfo,
       };
     }
     updateReplyRecord(request, record);
@@ -199,7 +199,7 @@ export async function populateRecord(agent, request, shouldUploadImage = false) 
     // If there is already another embed, don't generate the card embed.
     if (!record.embed) {
       // Find the first URL, match until the first whitespace or punctuation.
-      const urlMatch = request.richText.match(/https?:\/\/[^\s\]\[\"\'\<\>]+/);
+      const urlMatch = request.richText.match(/https?:\/\/[^\s\]["'<>]+/);
       if (urlMatch !== null) {
         const url = urlMatch[0];
         const card = await fetchEmbedUrlCard(url);
@@ -256,13 +256,15 @@ export function maybeUpdateReplyInThread(request, previousPostInfo, rootPostInfo
 // If the request contains rich text with thematic breaks, it will split the request into multiple
 // requests.
 export function maybeSplitRequests(request) {
-  if (request.action === 'repost') {  // reposts are always single posts.
+  if (request.action === 'repost') {
+    // reposts are always single posts.
     return [request];
   }
   if (!request.richText) {
     return [request];
   }
-  const thread = request.richText.split(/^\s*(?:[-*_]\s*){2,}\s*$/m)
+  const thread = request.richText
+    .split(/^\s*(?:[-*_]\s*){2,}\s*$/m)
     .map((text) => text.trim())
     .filter((text) => text.length > 0);
 
@@ -271,12 +273,14 @@ export function maybeSplitRequests(request) {
   }
 
   return thread.map((richText, i) => ({
-      ...request,
-      ...(i === 0 ? undefined : {
-        action: 'reply',  // Posts other than the first one are replies.
-        replyURL: REPLY_IN_THREAD,
-      }),
-      richText,
+    ...request,
+    ...(i === 0
+      ? undefined
+      : {
+          action: 'reply', // Posts other than the first one are replies.
+          replyURL: REPLY_IN_THREAD,
+        }),
+    richText,
   }));
 }
 

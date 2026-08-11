@@ -6,6 +6,6 @@ export async function getFeedFor(agent, handle, limit) {
   return agent.getAuthorFeed({
     actor: did,
     filter: 'posts_and_author_threads',
-    limit: limit
+    limit: limit,
   });
 }
