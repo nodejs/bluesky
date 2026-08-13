@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import fs from 'node:fs';
 import assert from 'node:assert';
-import process from 'node:process';
+import fs from 'node:fs';
 import path from 'node:path';
-import { post, maybeUpdateReplyInThread } from './lib/posts.js';
+import process from 'node:process';
+import { maybeUpdateReplyInThread, post } from './lib/posts.js';
 
 // This script takes a path to a JSON with the pattern $base_path/new/$any_name.json,
 // where $any_name can be anything, and then performs the action specified in it.
@@ -20,15 +20,15 @@ let rootPostInfo;
 let previousPostInfo;
 for (const request of requests) {
   let result;
-  switch(request.action) {
+  switch (request.action) {
     case 'post': {
       console.log(`Posting...`, request.richText);
       result = await post(agent, request);
       break;
-    };
+    }
     case 'repost': {
       console.log('Reposting...', request.repostURL);
-      assert(request.repostInfo);  // Extended by populateRecord.
+      assert(request.repostInfo); // Extended by populateRecord.
       result = await agent.repost(request.repostInfo.uri, request.repostInfo.cid);
       break;
     }
@@ -44,7 +44,7 @@ for (const request of requests) {
       break;
     }
     default:
-      assert.fail('Unknown action ' + request.action);
+      assert.fail(`Unknown action ${request.action}`);
   }
   console.log('Result', result);
   // Extend the result to be written to the processed JSON file.
@@ -88,6 +88,5 @@ if (richTextFile) {
   console.log(`Removing..${richTextFile}`);
   fs.rmSync(richTextFile);
 }
-
 
 console.log(`Processed and moved file: ${requestFilePath} -> ${newFilePath}`);

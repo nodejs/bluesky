@@ -2,11 +2,11 @@
 // It expects BLUESKY_APP_PASSWORD_$account and BLUESKY_IDENTIFIER_$account
 // environment variables to be set.
 
+import assert from 'node:assert';
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
 import process from 'node:process';
-import assert from 'node:assert';
 
 const tmpdir = path.join(import.meta.dirname, '.tmp');
 const newDir = path.join(tmpdir, 'new');
@@ -60,7 +60,7 @@ fs.writeFileSync(postPath, JSON.stringify(postRequest, null, 2), 'utf8');
 
 console.log('--- Test posting ---');
 console.log(postRequest);
-const postChild = checkProcess(process.execPath, [ processPath, postPath ]);
+const postChild = checkProcess(process.execPath, [processPath, postPath]);
 const postURL = await getURLFromLastResult(postChild.stdout);
 console.log(`Post URL`, postURL);
 
@@ -72,7 +72,7 @@ fs.writeFileSync(quotePostPath, JSON.stringify(quotePostRequest, null, 2), 'utf8
 
 console.log('--- Test quote posting the first post ---');
 console.log(quotePostRequest);
-const quotePostChild = checkProcess(process.execPath, [ processPath, quotePostPath ]);
+const quotePostChild = checkProcess(process.execPath, [processPath, quotePostPath]);
 const quotePostURL = await getURLFromLastResult(quotePostChild.stdout);
 console.log(`Quote post URL`, quotePostURL);
 
@@ -84,7 +84,7 @@ fs.writeFileSync(replyPath, JSON.stringify(replyRequest, null, 2), 'utf8');
 
 console.log('--- Test replying to the quote post ---');
 console.log(replyRequest);
-const replyChild = checkProcess(process.execPath, [ processPath, replyPath ]);
+const replyChild = checkProcess(process.execPath, [processPath, replyPath]);
 const replyURL = await getURLFromLastResult(replyChild.stdout);
 console.log(`Reply URL`, replyURL);
 
@@ -95,7 +95,7 @@ fs.writeFileSync(repostPath, JSON.stringify(repostRequest, null, 2), 'utf8');
 
 console.log('--- Test reposting the reply ---');
 console.log(repostRequest);
-checkProcess(process.execPath, [ processPath, repostPath ]);
+checkProcess(process.execPath, [processPath, repostPath]);
 // repost alone does not generate new URLs.
 
 // Test threading.
@@ -107,7 +107,7 @@ fs.cpSync(path.join(examplesDir, 'thread.txt'), path.join(newDir, 'thread.txt'))
 
 console.log('--- Test threading ---');
 console.log(threadRequest);
-const threadChild = checkProcess(process.execPath, [ processPath, threadPath ]);
+const threadChild = checkProcess(process.execPath, [processPath, threadPath]);
 const threadURL = await getURLFromLastResult(threadChild.stdout);
 console.log(`thread URL`, threadURL);
 

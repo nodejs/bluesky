@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import assert from 'node:assert';
 import fs from 'node:fs';
-import process from 'node:process';
 import path from 'node:path';
+import process from 'node:process';
 import { login } from './lib/login.js';
+import { maybeSplitRequests, populateRecord } from './lib/posts.js';
 import { validateAccount, validateRequest } from './lib/validator.js';
-import { populateRecord, maybeSplitRequests } from './lib/posts.js';
 
 // The JSON file must contains the following fields:
 // - "account": a string field indicating the account to use to perform the action.
@@ -32,6 +32,6 @@ requests.forEach(validateRequest);
 const agent = await login(account);
 
 // Validate and extend the post URLs in the request into { cid, uri } records.
-await Promise.all(requests.map(request => populateRecord(agent, request, false)));
+await Promise.all(requests.map((request) => populateRecord(agent, request, false)));
 
-export { agent, requests, requestFilePath, richTextFile };
+export { agent, requestFilePath, requests, richTextFile };
