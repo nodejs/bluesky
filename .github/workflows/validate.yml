@@ -1,4 +1,4 @@
-name: Validate newly added JSON
+name: Validate newly added JSON (remote)
 
 on:
   pull_request:
@@ -14,10 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-json:
-    # Only run if the PR is from a branch in the main repo, otherwise skip it.
-    # There can be a separate, local validation that runs for PRs from forks.
-    # https://github.com/nodejs/bluesky/issues/10
+  validate-json-remote:
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
@@ -29,7 +26,6 @@ jobs:
           ref: refs/pull/${{ github.event.pull_request.number }}/merge
           persist-credentials: false
 
-      # Must be done before setup-node.
       - name: Enable Corepack
         run: corepack enable
 
@@ -47,7 +43,6 @@ jobs:
       - name: Find newly added JSON files
         id: find-json
         run: |
-          # Get the list of added JSON files in the records/new/ directory
           ADDED_FILES=$(git diff -z HEAD^..HEAD --diff-filter=A --name-only records/new | jq -crRs 'split("\u0000") | map(select(endswith(".json"))) | @sh' || true)
           echo "NEW_JSON_FILES=$ADDED_FILES" >> "$GITHUB_OUTPUT"
 

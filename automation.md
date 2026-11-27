@@ -8,14 +8,16 @@ Records of requested and performed actions are under `./records`.
 ```
 - .github/workflows       # Contains workflows
     - process.yml         # Process merged requests
-    - validate.yml        # Validate JSON requests added in PRs to catch early errors
+    - validate-local.yml  # Local JSON shape checks for every PR (including forks)
+    - validate.yml        # Remote Bluesky URL checks for same-repo PRs (needs secrets)
 
 - actions/       # scripts for the actions
     - lib/
     - test/
         - integration.js  # This can be run locally to test process.js on a test account
     - process.js  # a script that takes a path/to/new/name.json to perform actions
-    - login-and-validate.js # part of process.js, can be run alone to validate a JSON
+    - validate-local.js   # local JSON validation (no Bluesky login)
+    - login-and-validate.js # local validation + Bluesky login/URL checks
 
 - records/
     - new/  # Where requests can be added in the form of JSON via pull requests.
@@ -44,7 +46,7 @@ Content automation is done in the form of adding new JSON files to `records/new`
      - `"reply"`: reply to an existing post specified by `"replyURL"`, with content specified by `"richText"` (or `"richTextFile"` if it's more convenient to edit the content from a separate text file).
      - `"quote-post"`: quote an existing post specified by `"repostURL"`, with new content specified by `"richText"` (or `"richTextFile"` if it's more convenient to edit the content from a separate text file).
    - For other fields see the examples under [`records/new`](./records/new).
-3. When the PR is opened, the [validate-json](./.github/workflows/validate.yml) workflow will run to make sure the JSON files are correctly filled. It will verify the URLs filled in the JSON files are valid.
+3. When the PR is opened, [validate-local](./.github/workflows/validate-local.yml) runs for every PR (including forks) to check JSON shape. PRs opened from a branch in this repository also run [validate-remote](./.github/workflows/validate.yml), which uses repository secrets to verify Bluesky URLs.
 4. When the PR is merged (either with _Squash and merge_ or with a merge commit, _Rebase and merge_ is not supported), the [process-json](./.github/workflows/process.yml) workflow will run to perform the requested actions, and when it's done, it will move the processed JSON files to `./records/processed` and renamed the file to `YYYY-MM-DD-ID.json` where ID is an incremental ID based on the number of files already processed on that date. It will also add in additional details of the performed actions (e.g. CID and URI of the posted post).
 5. When the process workflow is complete (likely within a minute), you should see a commit from the GitHub bot in the main branch moving the JSON file.
 
