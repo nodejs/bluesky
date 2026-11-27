@@ -1,0 +1,54 @@
+name: Validate newly added JSON (local)
+
+on:
+  pull_request:
+    types:
+      - opened
+      - ready_for_review
+      - reopened
+      - synchronize
+    paths:
+      - records/new/*.json
+
+permissions:
+  contents: read
+
+jobs:
+  validate-json-local:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          persist-credentials: false
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "yarn"
+          cache-dependency-path: actions/yarn.lock
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: ./actions
+
+      - name: Find newly added JSON files
+        id: find-json
+        run: |
+          ADDED_FILES=$(git diff -z HEAD^..HEAD --diff-filter=A --name-only records/new | jq -crRs 'split("\u0000") | map(select(endswith(".json"))) | @sh' || true)
+          echo "NEW_JSON_FILES=$ADDED_FILES" >> "$GITHUB_OUTPUT"
+
+      - name: Validate files locally
+        if: steps.find-json.outputs.NEW_JSON_FILES
+        run: |
+          for file in ${{ steps.find-json.outputs.NEW_JSON_FILES }}; do
+            echo "Processing $file..."
+            node actions/validate-local.js "$file"
+          done
